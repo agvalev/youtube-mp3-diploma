@@ -30,9 +30,6 @@ from .download_manager import DownloadManager
 class YTDGUI(QMainWindow):
     """
     Main GUI application class for yt-downloader-gui YouTube downloader.
-
-    This class implements the complete user interface and handles all user interactions,
-    download management, and application state.
     """
 
     # Custom signals for thread-safe GUI updates
@@ -62,9 +59,6 @@ class YTDGUI(QMainWindow):
     def __init__(self, base_dir: str):
         """
         Initialize the main application window and all components.
-
-        Args:
-            base_dir: The base directory of the application.
         """
         super().__init__()
 
@@ -104,36 +98,18 @@ class YTDGUI(QMainWindow):
         # Audio settings
         self.audio_quality_default = "320"
 
-        # Authentication settings
-        self.use_cookies = False
-        self.cookie_browser = "chrome"
-        self.cookie_file: Optional[str] = None
-
     def _connect_signals(self) -> None:
         """Connect Qt signals for thread-safe GUI updates."""
         self.updateStatusSignal.connect(self._update_status)
         self.logMessageSignal.connect(self._log_message)
         self.updateProgressSignal.connect(self._update_progress)
         self.downloadErrorSignal.connect(self._show_download_error_slot)
-        self.download_manager.signals.result.connect(self.on_playlist_result)
-        self.download_manager.signals.error.connect(self.on_playlist_error)
-
-    def on_playlist_result(self, result):
-        entries, save_path, mode, title = result
-        self.download_manager._show_video_selection_dialog(
-            entries, save_path, mode, title
-        )
-
-    def on_playlist_error(self, error_info):
-        exctype, value = error_info
-        QMessageBox.critical(
-            self, "Error", f"Failed to extract playlist information: {value}"
-        )
+        self.download_manager.signals.result.connect(self.download_manager._show_video_selection_dialog)
+        self.download_manager.signals.error.connect(self.download_manager._on_playlist_error)
 
     def select_save_path(self) -> None:
         """Open folder selection dialog for download location."""
         directory = QFileDialog.getExistingDirectory(self, "Select Download Folder")
-
         if directory:
             self.path_entry.setText(directory)
             self.update_status("Save path selected")
@@ -154,7 +130,7 @@ class YTDGUI(QMainWindow):
     def log_message(self, msg: str) -> None:
         """Log message to activity panel and console (thread-safe)."""
         self.logMessageSignal.emit(msg)
-        print(f"[yt-downloader-gui] {msg}")  # Also log to console
+        print(f"[yt-downloader-gui] {msg}")
 
     def _log_message(self, msg: str) -> None:
         """Internal method to add message to log widget in main thread."""

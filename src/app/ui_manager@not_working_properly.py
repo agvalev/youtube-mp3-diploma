@@ -12,9 +12,8 @@ from PyQt6.QtWidgets import (
     QDialog,
     QFileDialog,
     QHBoxLayout,
-    QInputDialog,
-    QLabel,
     QLineEdit,
+    QLabel,
     QMainWindow,
     QMessageBox,
     QProgressBar,
@@ -63,25 +62,15 @@ class UIManager:
     def _load_icons(self) -> None:
         """Load application icons from assets directory."""
         self.main_app.icons = {
-            "download": self.load_icon(
-                os.path.join(self.main_app.base_dir, "assets", "download.png")
-            ),
-            "activity": self.load_icon(
-                os.path.join(self.main_app.base_dir, "assets", "activity.png")
-            ),
+            "download": self.load_icon(os.path.join(self.main_app.base_dir, "assets", "download.png")),
+            "activity": self.load_icon(os.path.join(self.main_app.base_dir, "assets", "activity.png")),
         }
 
-        # Load video favicon for playlist/channel selection dialogs
         try:
-            vf_path = os.path.join(
-                self.main_app.base_dir, "assets", "video-favicon.png"
-            )
+            vf_path = os.path.join(self.main_app.base_dir, "assets", "video-favicon.png")
             if os.path.exists(vf_path):
                 self.main_app.video_favicon_pixmap = QPixmap(vf_path).scaled(
-                    16,
-                    16,
-                    Qt.AspectRatioMode.KeepAspectRatio,
-                    Qt.TransformationMode.SmoothTransformation,
+                    16, 16, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation
                 )
             else:
                 self.main_app.video_favicon_pixmap = None
@@ -89,6 +78,7 @@ class UIManager:
             self.main_app.video_favicon_pixmap = None
 
     def load_icon(self, path: str) -> QIcon:
+        """Load an icon from the specified path."""
         try:
             if os.path.exists(path):
                 return QIcon(QPixmap(path))
@@ -100,32 +90,30 @@ class UIManager:
         """Create the application menu bar with File and Help menus."""
         menubar = self.main_app.menuBar()
 
-        # File menu
         file_menu = menubar.addMenu("File")
-
-        # Exit action
         exit_action = QAction("Exit", self.main_app)
         exit_action.triggered.connect(self.main_app.close)
         file_menu.addAction(exit_action)
 
-        # Help menu
         help_menu = menubar.addMenu("Help")
-
         about_action = QAction("About", self.main_app)
         about_action.triggered.connect(self.show_about)
         help_menu.addAction(about_action)
 
     def show_about(self) -> None:
+        """Display application about dialog."""
         about_text = (
             "yt-downloader-gui\n"
             "Version 1.0.0\n\n"
             "Developed by ukr\n\n"
             "A professional YouTube video and audio downloader\n"
-            "with support for playlists and channels."
+            "with support for playlists and channels.\n\n"
+            "Report bugs via our support channel."
         )
         QMessageBox.information(self.main_app, "About yt-downloader-gui", about_text)
 
     def create_sidebar(self) -> QWidget:
+        """Create navigation sidebar with application pages."""
         widget = QWidget()
         layout = QVBoxLayout(widget)
 
@@ -150,6 +138,7 @@ class UIManager:
         return widget
 
     def switch_page(self, name: str) -> None:
+        """Switch to the specified page in the main content area."""
         if name == "Download":
             self.main_app.stack.setCurrentWidget(self.main_app.download_page)
         elif name == "Activity":
@@ -158,18 +147,25 @@ class UIManager:
         self.main_app.update_status(f"{name} section active")
 
     def create_download_page(self) -> QWidget:
+        """Create the main download configuration page."""
         page = QWidget()
         layout = QVBoxLayout(page)
 
-        layout.addWidget(QLabel("Enter YouTube URL (or Playlist/Channel URL):"))
+        url_label = QLabel("Enter YouTube URL (or Playlist/Channel URL):")
+        url_label.setObjectName("header_label")
+        layout.addWidget(url_label)
 
         self.main_app.url_entry = QLineEdit()
+        self.main_app.url_entry.setPlaceholderText("https://www.youtube.com/watch?v=...")
         layout.addWidget(self.main_app.url_entry)
 
-        layout.addWidget(QLabel("Save Location:"))
+        save_path_label = QLabel("Save Location:")
+        save_path_label.setObjectName("header_label")
+        layout.addWidget(save_path_label)
 
         path_layout = QHBoxLayout()
         self.main_app.path_entry = QLineEdit(readOnly=True)
+        self.main_app.path_entry.setPlaceholderText("Select folder to save downloads")
         path_layout.addWidget(self.main_app.path_entry)
 
         browse_btn = QPushButton("Browse Folder")
@@ -177,37 +173,27 @@ class UIManager:
         path_layout.addWidget(browse_btn)
         layout.addLayout(path_layout)
 
-        layout.addWidget(QLabel("Download Mode:"))
+        mode_label = QLabel("Download Mode:")
+        mode_label.setObjectName("header_label")
+        layout.addWidget(mode_label)
+
         self.main_app.mode_combo = QComboBox()
-        self.main_app.mode_combo.addItems(
-            [
-                "Single Video",
-                "MP3 Only",
-                "Playlist Video",
-                "Playlist MP3",
-                "Channel Videos",
-                "Channel Videos MP3",
-                "Channel Shorts",
-                "Channel Shorts MP3",
-            ]
-        )
+        download_modes = [
+            "Single Video", "MP3 Only", "Playlist Video", "Playlist MP3",
+            "Channel Videos", "Channel Videos MP3", "Channel Shorts", "Channel Shorts MP3"
+        ]
+        self.main_app.mode_combo.addItems(download_modes)
         self.main_app.mode_combo.currentTextChanged.connect(self.mode_changed)
         layout.addWidget(self.main_app.mode_combo)
 
         self.main_app.video_quality_label = QLabel("Video Quality:")
+        self.main_app.video_quality_label.setObjectName("header_label")
         self.main_app.video_quality_combo = QComboBox()
-        self.main_app.video_quality_combo.addItems(
-            [
-                "Best Available",
-                "4320p 8K",
-                "2160p 4K",
-                "1440p 2K",
-                "1080p Full HD",
-                "720p HD",
-                "480p Standard",
-                "360p Medium",
-            ]
-        )
+        quality_options = [
+            "Best Available", "4320p 8K", "2160p 4K", "1440p 2K", "1080p Full HD",
+            "720p HD", "480p Standard", "360p Medium"
+        ]
+        self.main_app.video_quality_combo.addItems(quality_options)
 
         layout.addWidget(self.main_app.video_quality_label)
         layout.addWidget(self.main_app.video_quality_combo)
@@ -215,6 +201,7 @@ class UIManager:
         self.mode_changed(self.main_app.mode_combo.currentText())
 
         download_btn = QPushButton("Download")
+        download_btn.setObjectName("download_button")
         download_btn.clicked.connect(self.main_app.download_manager.add_to_queue)
         layout.addWidget(download_btn)
 
@@ -222,6 +209,7 @@ class UIManager:
         return page
 
     def mode_changed(self, text: str) -> None:
+        """Handle download mode change to show/hide relevant controls."""
         self.main_app.mode_var = text
         if "MP3" in text:
             self.main_app.video_quality_label.hide()
@@ -231,31 +219,38 @@ class UIManager:
             self.main_app.video_quality_combo.show()
 
     def create_activity_page(self) -> QWidget:
+        """Create the activity/logging page for monitoring downloads."""
         page = QWidget()
         layout = QVBoxLayout(page)
 
-        layout.addWidget(QLabel("Download Activity"))
+        title_label = QLabel("Download Activity")
+        title_label.setObjectName("header_label")
+        layout.addWidget(title_label)
 
         self.main_app.progress_bar = QProgressBar()
+        self.main_app.progress_bar.setObjectName("progress_bar")
+        self.main_app.progress_bar.setTextVisible(True)
+        self.main_app.progress_bar.setValue(0)
         layout.addWidget(self.main_app.progress_bar)
 
         self.main_app.log_text = QTextEdit(readOnly=True)
         layout.addWidget(self.main_app.log_text)
 
-        bottom = QHBoxLayout()
+        button_layout = QHBoxLayout()
         clear_btn = QPushButton("Clear Log")
         clear_btn.clicked.connect(lambda: self.main_app.log_text.clear())
-        bottom.addWidget(clear_btn)
-
-        bottom.addStretch()
+        button_layout.addWidget(clear_btn)
+        button_layout.addStretch()
 
         self.main_app.queue_status_label = QLabel("Queue: 0 pending")
-        bottom.addWidget(self.main_app.queue_status_label)
+        self.main_app.queue_status_label.setObjectName("status_label")
+        button_layout.addWidget(self.main_app.queue_status_label)
 
-        layout.addLayout(bottom)
+        layout.addLayout(button_layout)
         return page
 
     def _create_ui(self) -> None:
+        """Create and layout the main user interface."""
         self._load_stylesheet()
         self.create_menubar()
 
