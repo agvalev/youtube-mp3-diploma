@@ -1,7 +1,8 @@
 # 🎵 yt-downloader-gui
 
-**yt-downloader-gui** is a professional, cross-platform **desktop application** for downloading and managing multimedia content from **YouTube** through a modern and intuitive graphical interface.  
-The project is developed in **Python** using **:contentReference[oaicite:1]{index=1}** and integrates industry-grade tools such as **:contentReference[oaicite:2]{index=2}** and **:contentReference[oaicite:3]{index=3}**.
+**yt-downloader-gui** is a professional, cross-platform desktop application for downloading and managing multimedia content from YouTube through a modern and intuitive graphical user interface.
+
+The project is developed in Python using the PyQt6 framework and integrates powerful tools such as yt-dlp for media downloading and ffmpeg for audio and video processing.
 
 The application is designed with a strong focus on **software architecture, usability, security, and background processing**, making it suitable for **real-world use** as well as **academic evaluation and diploma defense**.
 
