@@ -1,167 +1,212 @@
 # 🎵 yt-downloader-gui
 
-**yt-downloader-gui** is a professional desktop application designed for downloading and managing multimedia content from **YouTube** in a secure, structured, and user-friendly way. The application is developed using **Python** and **PyQt6** and provides a complete graphical interface that allows users to download **videos and audio (MP3)** from individual YouTube videos, playlists, and entire channels.
+**yt-downloader-gui** is a professional, cross-platform **desktop application** for downloading and managing multimedia content from **YouTube** through a modern and intuitive graphical interface.  
+The project is developed in **Python** using **:contentReference[oaicite:1]{index=1}** and integrates industry-grade tools such as **:contentReference[oaicite:2]{index=2}** and **:contentReference[oaicite:3]{index=3}**.
 
-The main objective of the project is to demonstrate the implementation of a **desktop-based multimedia system** that integrates a modern graphical user interface with a powerful backend for network content processing. The application focuses on **usability, modular architecture, background processing, and basic network security**, making it suitable for both real-world use and academic evaluation.
-
-Unlike simple command-line download tools, yt-downloader-gui abstracts all technical complexity behind a clean and intuitive interface. The user interacts only with clearly defined controls such as input fields, buttons, and selection dialogs, while all heavy operations — such as link analysis, metadata extraction, download execution, and audio/video processing — are performed automatically in the background.
-
----
-
-### 🧠 How the Application Works – High-Level Overview
-
-At a conceptual level, yt-downloader-gui functions as a **controller layer** between the user and two specialized multimedia tools: **yt-dlp** and **ffmpeg**. The graphical interface collects user input, validates it, and translates it into structured commands that are executed safely and efficiently by the backend.
-
-The application workflow begins when the user provides a **YouTube URL**. This URL is analyzed to determine its type:
-- single video
-- playlist
-- channel videos
-- channel shorts
-
-Based on the selected download mode, the application dynamically chooses the appropriate processing strategy. For playlists and channels, the system performs a fast metadata scan without downloading the media itself. This allows the user to preview and select specific videos before initiating the actual download process.
-
-All download operations are executed in **separate background threads**, ensuring that the user interface remains fully responsive at all times. Progress information is continuously captured from the download process and displayed visually through a progress bar and detailed activity log.
+The application is designed with a strong focus on **software architecture, usability, security, and background processing**, making it suitable for **real-world use** as well as **academic evaluation and diploma defense**.
 
 ---
 
-### ⚙️ Backend Processing and Media Handling
+## 🎯 Project Goals
 
-The core downloading logic is powered by **yt-dlp**, a robust and actively maintained media extraction tool. yt-dlp is responsible for:
-- validating the YouTube URL
-- extracting metadata
-- resolving video and audio streams
-- handling playlists and channel feeds
+The main goal of **yt-downloader-gui** is to demonstrate how a **desktop-based multimedia system** can be built by combining:
 
-Once the media streams are downloaded, **ffmpeg** is used to perform all audio and video processing tasks, such as:
-- merging video and audio streams
-- converting audio to MP3 format
-- controlling output quality and encoding parameters
+- A **modern GUI**
+- A **powerful media extraction backend**
+- **Threaded background processing**
+- **Secure URL validation**
+- **Clean, modular software architecture**
 
-This separation of responsibilities ensures high reliability and industry-grade media handling while keeping the Python application itself clean, readable, and maintainable.
+All technical complexity is abstracted away from the user.  
+The user interacts only with simple UI elements, while all heavy operations are executed safely in the background.
 
 ---
 
-### 🔐 Security and URL Validation
+## 🧠 How the Application Works (Conceptual Overview)
 
-To protect the user from downloading content from untrusted or potentially malicious sources, the application includes multiple layers of validation. Only URLs that match known YouTube domains are accepted for processing. Additionally, yt-dlp itself performs strict internal validation and rejects unsupported or unsafe URLs.
+At a high level, yt-downloader-gui acts as a **controller layer** between the user and two specialized media engines:
 
-By restricting downloads to trusted platforms and avoiding direct file execution from unknown sources, the application significantly reduces the risk of malware exposure during media extraction.
+- **yt-dlp** – media discovery and downloading  
+- **ffmpeg** – audio/video processing and conversion  
+
+### Workflow Overview
+
+1. User enters a **YouTube URL**
+2. The application validates the URL
+3. The link type is detected automatically:
+   - Single video
+   - Playlist
+   - Channel videos
+   - Channel shorts
+4. Metadata is extracted **without downloading media**
+5. The user selects desired items (if applicable)
+6. Downloads are added to a **managed queue**
+7. Media is downloaded in **background threads**
+8. Progress is parsed and displayed in real time
+9. Files are processed and saved locally
+
+The UI **never freezes**, even during long downloads.
 
 ---
 
-### 🎓 Academic and Educational Focus
+## ⚙️ Backend Processing & Media Handling
 
-yt-downloader-gui is intentionally designed following **best practices in software engineering**, including:
-- modular code structure
-- separation of concerns
-- background threading
-- signal-based communication
-- clear documentation
+### yt-dlp Responsibilities
+- URL validation
+- Metadata extraction
+- Stream resolution
+- Playlist & channel handling
+- Download execution
 
-These characteristics make the project especially suitable for **diploma defense**, as it demonstrates not only functional correctness but also architectural thinking, security awareness, and user-centered design.
+### ffmpeg Responsibilities
+- Audio/video stream merging
+- MP3 conversion
+- Bitrate and quality control
+- Encoding parameter management
 
-The project can be easily extended with additional features such as playlist management, local media playback, or download history, making it a strong foundation for future development.
+This separation ensures **high reliability** and **clean Python code**, without reinventing complex media logic.
 
 ---
 
-### 🎨 Professional UI Redesign
-- Complete visual overhaul with a modern **dark theme**
-- Centralized styling using a dedicated **QSS stylesheet**
-- Improved layout and spacing with a larger default window size
-- Consistent styling across all widgets
+## 🔐 Security & URL Validation
 
-### 📊 Enhanced Download Feedback
-- Real-time **progress bar** on the Activity page
-- Progress parsing directly from `yt-dlp` console output
-- Live scrolling activity log
+Security is a core design principle.
 
-### 🧹 Code Refinements
-- Removed inline widget styling
-- Added object names for precise QSS targeting
-- Clear separation between UI, logic, and background workers
+- Only **trusted YouTube domains** are accepted:
+  - `youtube.com`
+  - `youtu.be`
+  - `music.youtube.com`
+- Invalid or unknown URLs are rejected immediately
+- yt-dlp performs **additional internal validation**
+- No execution of untrusted external files
+
+This approach minimizes the risk of malicious downloads or misuse.
+
+---
+
+## 🎓 Academic & Educational Value
+
+The project follows **best practices in software engineering**, including:
+
+- Modular architecture
+- Separation of concerns
+- Background threading
+- Signal/slot communication
+- Clean documentation
+- Maintainable code structure
+
+Because of this, **yt-downloader-gui** is ideal for:
+- Diploma defense
+- University projects
+- Software architecture demonstrations
+- Python GUI coursework
+
+The system can easily be extended with:
+- Download history
+- Local media playback
+- Preset profiles
+- Queue prioritization
+
+---
+
+## 🎨 Professional User Interface
+
+- Modern **dark theme**
+- Centralized styling via **QSS**
+- Larger default window size
+- Clean spacing and layout
+- Consistent widget styling
+- Dedicated Activity & Download views
+
+All UI styling is **fully separated** from logic.
+
+---
+
+## 📊 Real-Time Download Feedback
+
+- Live **progress bar**
+- Real-time activity log
+- Console output parsing from yt-dlp
+- Automatic scrolling log view
+- Clear status indicators per task
 
 ---
 
 ## ⭐ Features
 
 ### 🎯 Download Capabilities
-- **Single Video Download**
-- **Single MP3 Extraction**
-- **Playlist Video Download**
-- **Playlist MP3 Download**
-- **Channel Videos Download**
-- **Channel MP3 Download**
-- **Channel Shorts / Shorts MP3**
+- Single video download
+- Single MP3 extraction
+- Playlist video download
+- Playlist MP3 download
+- Channel video download
+- Channel MP3 download
+- Channel Shorts / Shorts MP3
 
 ### 🧠 Smart Playlist & Channel Handling
-- Automatic extraction of video metadata
-- Interactive dialog for selecting individual videos
-- Batch processing using a managed download queue
-
-### 🔐 Security & URL Validation
-- Accepts **only YouTube-related URLs**
-  - `youtube.com`
-  - `youtu.be`
-  - `music.youtube.com`
-- Prevents accidental downloads from untrusted or malicious sources
-- Additional validation is performed internally by `yt-dlp`
+- Fast metadata extraction
+- Interactive selection dialog
+- Batch processing
+- Managed download queue
 
 ### 🔑 Authentication Support
-- Cookie-based login support for:
-  - Age-restricted videos
-  - Private or members-only content
-- Compatible with browser extensions exporting `cookies.txt`
+- Cookie-based login
+- Age-restricted content
+- Members-only videos
+- Supports `cookies.txt` from browsers
 
 ### 🎚 Quality Control
-- Video: Best available or fixed resolutions (8K, 4K, 1080p, etc.)
-- Audio: MP3 extraction (default **320 kbps**)
+- Video:
+  - Best available
+  - Fixed resolutions (8K, 4K, 1080p, etc.)
+- Audio:
+  - MP3 (default **320 kbps**)
 
 ### 🔄 Automatic yt-dlp Updater
-- Automatically checks GitHub for updates
-- Replaces the local `yt-dlp` binary when a new version is available
+- GitHub version check via **:contentReference[oaicite:4]{index=4}**
+- Automatic binary replacement
 - No manual updates required
 
-### 🖥 Cross-Platform
-- Works on **Windows, Linux, and macOS**
-- Uses `ffmpeg` for audio/video processing
+### 🖥 Cross-Platform Support
+- Windows
+- Linux
+- macOS
 
 ---
 
 ## 🧩 Application Architecture
 
-The project follows a **modular architecture**, ensuring maintainability and scalability.
+The project follows a **clean modular design**.
 
-| Module | Description |
-|------|------------|
-| `main_window.py` | Main application window and signal handling |
-| `ui_manager.py` | UI creation, layout, and styling |
-| `download_manager.py` | Download logic, queue management, yt-dlp integration |
+| Module | Responsibility |
+|------|----------------|
+| `main_window.py` | Main application window & signals |
+| `ui_manager.py` | UI creation, layout, styling |
+| `download_manager.py` | Download logic & queue |
 | `login_manager.py` | Cookie-based authentication |
-| `updater.py` | Automatic yt-dlp update system |
+| `updater.py` | Automatic yt-dlp updates |
 
-All download operations are executed in **background threads**, ensuring a responsive user interface.
-
----
-
-## 🔁 Download Workflow (Step-by-Step)
-
-1. User enters a **YouTube URL**
-2. The URL is validated to ensure it belongs to YouTube
-3. User selects a download mode (video, MP3, playlist, channel)
-4. `yt-dlp` extracts metadata using:
-   - `--flat-playlist`
-   - `--dump-json`
-5. For playlists/channels, the user selects specific videos
-6. Selected tasks are added to a **download queue**
-7. Media is downloaded via `yt-dlp`
-8. Audio/video processing is handled by `ffmpeg`
-9. Progress is tracked and displayed in real time
-10. Files are saved locally and the queue continues automatically
+All download operations run in **separate threads**.
 
 ---
 
+## 🔁 Download Workflow (Detailed)
 
-## 📁 Folder Structure
+1. URL input
+2. Domain validation
+3. Mode selection
+4. Metadata extraction (`--flat-playlist`, `--dump-json`)
+5. User selection (if playlist/channel)
+6. Queue creation
+7. Download execution
+8. Media processing via ffmpeg
+9. Progress tracking
+10. Automatic queue continuation
+
+---
+
+## 📁 Project Structure
+
 
 ```
 yt-downloader-gui/
@@ -221,21 +266,95 @@ yt-downloader-gui/
 ## 🕹 Usage
 
 ### Prerequisites
+- **GitHub**
+- **Python 3.10+**
+- Supported operating systems:
+  - Windows
+  - Linux
+  - macOS
 
-- GitHub
+> ⚠️ **Note:**  
+> The application relies on **yt-dlp** and **ffmpeg**, which are already included in the `bin/` directory for Windows builds.  
+> On Linux/macOS, **ffmpeg** must be installed and available in the system PATH.
 
-### Installation
+---
+
+## 📥 Installation
+
+### Prerequisites
+- **Python 3.10 or newer**
+- **GitHub**
+- Supported operating systems:
+  - Windows
+  - Linux
+  - macOS
+
+> ⚠️ **Note:**  
+> On **Windows**, `yt-dlp` and `ffmpeg` are included in the `bin/` directory.  
+> On **Linux/macOS**, `ffmpeg` must be installed and available in the system PATH.
+
+---
+
+### Installation Steps
 
 ```bash
 # Clone the repository
 git clone https://github.com/uikraft-hub/yt-downloader-gui.git
+
+# Navigate to the project directory
+cd youtube-mp3-for-diploma
+
+# Install Python dependencies
+pip install -r requirements.txt
+
+# Run the application
+python src/main.py
+
 ```
 
 For more detailed documentation, see our [USAGE.md](USAGE.md)
 
 ---
 
+## ⚙️ Configuration
+
+### Cookies (Optional – Authentication Support)
+
+To download:
+- Age-restricted videos
+- Members-only content
+- Private videos (where permitted)
+
+Provide a `cookies.txt` file exported from your browser.
+
+**How it works:**
+1. Export cookies using a supported browser extension
+2. Place `cookies.txt` in the project root directory **or** select it via the application UI
+3. Cookies are passed directly to yt-dlp during download execution
+
+No credentials are stored, transmitted, or logged by the application.
+
+
+---
+
 ## 🤝 Contributing
+
+Contributions are welcome and appreciated.
+
+To contribute to this project:
+
+1. Fork the repository
+2. Create a new branch for your feature or bug fix
+3. Commit your changes with clear and descriptive commit messages
+4. Push the branch to your fork
+5. Open a Pull Request targeting the main branch
+
+Before submitting a contribution, please review:
+- `CONTRIBUTING.md`
+- `CODE_OF_CONDUCT.md`
+
+All contributions should follow the project's coding standards and documentation guidelines.
+
 
 Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
@@ -244,20 +363,55 @@ Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
 ## 📋 Roadmap
 
-- [x] Modern PyQt6 GUI
-- [x] Multiple Download Modes
-- [x] Automatic yt‑dlp Updater
+Planned and completed features for **yt-downloader-gui**:
 
-See the [open issues](https://github.com/uikraft-hub/yt-downloader-gui/issues) for a full list of proposed features and known issues.
+- [x] Modern PyQt6 graphical user interface
+- [x] Multiple download modes (video, audio, playlists, channels)
+- [x] Playlist and channel metadata preview
+- [x] Cookie-based authentication support
+- [x] Automatic yt-dlp updater
+- [ ] Download history panel
+- [ ] Preset quality and format profiles
+- [ ] Integrated media preview player
+- [ ] Advanced download queue management
+- [ ] Localization and multi-language UI support
+
+See the **Issues** section on GitHub for detailed feature requests and known limitations.
+
 
 ---
 
+## 🛡 Security Policy
+
+Security is a core design principle of **yt-downloader-gui**.
+
+The following security measures are implemented:
+
+- Only trusted **YouTube-related domains** are accepted:
+  - `youtube.com`
+  - `youtu.be`
+  - `music.youtube.com`
+- All URLs are validated before processing
+- No execution of unknown or external binaries
+- Media downloads are handled exclusively by **yt-dlp**
+- Audio and video processing is performed via **ffmpeg**
+- Cookies (if used) are never stored permanently or transmitted externally
+- No user credentials are logged or persisted
+
+If you discover a security vulnerability, please report it responsibly by following the guidelines in **SECURITY.md**.
+
+
+---
 
 ## 🙏 Acknowledgments
 
-* **yt-dlp** for the robust download backend
-* **PyQt6** for the modern GUI framework
-* **ffmpeg** for audio/video processing
-* **GitHub API** for seamless updater integration
+This project would not be possible without the following open-source technologies and communities:
+
+- **yt-dlp** – for providing a robust and actively maintained media extraction engine
+- **PyQt6** – for the modern, cross-platform graphical user interface framework
+- **ffmpeg** – for industry-grade audio and video processing
+- **GitHub API** – for enabling automatic update checks and seamless integration
+
+Special thanks to the open-source community for continuous improvements, documentation, and support.
 
 
