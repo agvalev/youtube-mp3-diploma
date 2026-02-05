@@ -125,6 +125,8 @@ For downloading age-restricted or private content, you can use cookie-based logi
 1. **Start the Application**
    ```bash
    python src/main.py
+
+   python -m src.main
    ```
 
 2. **Enter YouTube URL**
