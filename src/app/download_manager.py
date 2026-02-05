@@ -2,6 +2,7 @@
 Handles the download queue and execution.
 """
 
+import cmd
 import os
 import re
 import threading
@@ -483,6 +484,10 @@ class DownloadManager:
                     save_path,
                     task.get("audio_quality", "320"),
                 )
+
+            # Use Node.js as JavaScript runtime (required by YouTube)
+            cmd.extend(["--js-runtimes", "node"])   # ADDED
+
 
             # Add cookie support if enabled
             if self.main_app.use_cookies and self.main_app.cookie_file:

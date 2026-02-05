@@ -9,7 +9,8 @@ Repository: https://github.com/uikraft-hub/yt-downloader-gui
 import sys
 import os
 from PyQt6.QtWidgets import QApplication
-from app.main_window import YTDGUI
+from src.app.main_window import YTDGUI
+
 
 
 def main():
