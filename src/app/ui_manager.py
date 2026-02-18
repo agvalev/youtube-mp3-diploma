@@ -217,6 +217,27 @@ class UIManager:
         download_btn = QPushButton("Download")
         download_btn.clicked.connect(self.main_app.download_manager.add_to_queue)
         layout.addWidget(download_btn)
+        # -------- Audio Player Section --------
+        layout.addSpacing(20)
+        layout.addWidget(QLabel("Audio Player"))
+
+        audio_layout = QHBoxLayout()
+
+        play_btn = QPushButton("▶ Play")
+        pause_btn = QPushButton("⏸ Pause")
+        stop_btn = QPushButton("⏹ Stop")
+
+        play_btn.clicked.connect(self.main_app.play_audio)
+        pause_btn.clicked.connect(self.main_app.pause_audio)
+        stop_btn.clicked.connect(self.main_app.stop_audio)
+
+        audio_layout.addWidget(play_btn)
+        audio_layout.addWidget(pause_btn)
+        audio_layout.addWidget(stop_btn)
+
+        layout.addLayout(audio_layout)
+        # --------------------------------------
+
 
         layout.addStretch()
         return page

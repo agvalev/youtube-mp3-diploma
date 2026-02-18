@@ -25,6 +25,8 @@ from PyQt6.QtGui import QPixmap, QIcon
 
 from .ui_manager import UIManager
 from .download_manager import DownloadManager
+from .audio_player import AudioPlayer
+
 
 
 class YTDGUI(QMainWindow):
@@ -82,6 +84,9 @@ class YTDGUI(QMainWindow):
 
         # Initialize application state
         self._initialize_state()
+
+        # Initialize audio player
+        self.audio_player = AudioPlayer()
 
         # Load UI icons
         self.ui_manager._load_icons()
@@ -167,3 +172,30 @@ class YTDGUI(QMainWindow):
     def _show_download_error_slot(self, error: Exception) -> None:
         """Slot method to show download error dialog safely in main thread."""
         self.download_manager._show_download_error(error)
+
+
+    def play_audio(self):
+        from PyQt6.QtWidgets import QFileDialog
+
+        file_path, _ = QFileDialog.getOpenFileName(
+            self,
+            "Select MP3 File",
+            "",
+            "Audio Files (*.mp3)"
+        )
+
+        if file_path:
+            self.audio_player.load(file_path)
+            self.audio_player.play()
+            self.update_status("Playing audio")
+
+
+    def pause_audio(self):
+        self.audio_player.pause()
+        self.update_status("Audio paused")
+
+
+    def stop_audio(self):
+        self.audio_player.stop()
+        self.update_status("Audio stopped")
+
