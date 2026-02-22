@@ -28,6 +28,8 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtGui import QAction, QIcon, QPixmap
 from PyQt6.QtCore import QSize, Qt
+from PyQt6.QtWidgets import QSlider
+from PyQt6.QtCore import Qt
 
 if TYPE_CHECKING:
     from .main_window import YTDGUI
@@ -223,20 +225,43 @@ class UIManager:
 
         audio_layout = QHBoxLayout()
 
-        play_btn = QPushButton("▶ Play")
-        pause_btn = QPushButton("⏸ Pause")
+        self.main_app.play_btn = QPushButton("▶ Play")
         stop_btn = QPushButton("⏹ Stop")
 
-        play_btn.clicked.connect(self.main_app.play_audio)
-        pause_btn.clicked.connect(self.main_app.pause_audio)
+        self.main_app.play_btn.clicked.connect(self.main_app.play_audio)
         stop_btn.clicked.connect(self.main_app.stop_audio)
 
-        audio_layout.addWidget(play_btn)
-        audio_layout.addWidget(pause_btn)
+        audio_layout.addWidget(self.main_app.play_btn)
         audio_layout.addWidget(stop_btn)
 
         layout.addLayout(audio_layout)
         # --------------------------------------
+
+
+        from PyQt6.QtWidgets import QSlider
+
+        # Volume label
+        layout.addWidget(QLabel("Volume"))
+
+        # Volume slider
+        self.main_app.volume_slider = QSlider(Qt.Orientation.Horizontal)
+        self.main_app.volume_slider.setRange(0, 100)
+        self.main_app.volume_slider.setValue(50)
+        layout.addWidget(self.main_app.volume_slider)
+
+
+        # Song title label
+        self.main_app.song_label = QLabel("No song loaded")
+        layout.addWidget(self.main_app.song_label)
+
+        # Progress slider
+        self.main_app.audio_slider = QSlider(Qt.Orientation.Horizontal)
+        self.main_app.audio_slider.setRange(0, 100)
+        layout.addWidget(self.main_app.audio_slider)
+
+        # Time label
+        self.main_app.time_label = QLabel("00:00 / 00:00")
+        layout.addWidget(self.main_app.time_label)
 
 
         layout.addStretch()

@@ -22,6 +22,10 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import pyqtSignal, QTimer
 from PyQt6.QtGui import QPixmap, QIcon
+from PyQt6.QtWidgets import QFileDialog
+import os
+from PyQt6.QtMultimedia import QMediaPlayer
+
 
 from .ui_manager import UIManager
 from .download_manager import DownloadManager
@@ -88,11 +92,29 @@ class YTDGUI(QMainWindow):
         # Initialize audio player
         self.audio_player = AudioPlayer()
 
+
         # Load UI icons
         self.ui_manager._load_icons()
 
         # Build user interface
         self.ui_manager._create_ui()
+
+        self.audio_player.player.positionChanged.connect(self.update_audio_position)
+        self.audio_player.player.durationChanged.connect(self.update_audio_duration)
+        self.audio_player.player.playbackStateChanged.connect(self.update_play_button)
+
+
+        if hasattr(self, "audio_slider"):
+            self.audio_slider.sliderMoved.connect(
+                lambda pos: self.audio_player.set_position(pos)
+        )
+            
+        if hasattr(self, "volume_slider"):
+            self.volume_slider.valueChanged.connect(
+                lambda value: self.audio_player.audio_output.setVolume(value / 100)
+            )
+
+
 
         # Connect signals for thread-safe updates
         self._connect_signals()
@@ -175,8 +197,14 @@ class YTDGUI(QMainWindow):
 
 
     def play_audio(self):
-        from PyQt6.QtWidgets import QFileDialog
 
+        # Ако вече има заредена песен → resume
+        if self.audio_player.current_file:
+            self.audio_player.play()
+            self.update_status("Resumed audio")
+            return
+
+        # Ако няма заредена → избери файл
         file_path, _ = QFileDialog.getOpenFileName(
             self,
             "Select MP3 File",
@@ -187,7 +215,14 @@ class YTDGUI(QMainWindow):
         if file_path:
             self.audio_player.load(file_path)
             self.audio_player.play()
+
+            # Показва името автоматично
+            if hasattr(self, "song_label"):
+                self.song_label.setText(os.path.basename(file_path))
+
             self.update_status("Playing audio")
+
+
 
 
     def pause_audio(self):
@@ -198,4 +233,42 @@ class YTDGUI(QMainWindow):
     def stop_audio(self):
         self.audio_player.stop()
         self.update_status("Audio stopped")
+
+    def update_audio_position(self, position):
+    # Движи слайдера
+        if hasattr(self, "audio_slider"):
+            self.audio_slider.setValue(position)
+
+    # Обновява времето
+        if hasattr(self, "time_label"):
+            current = position // 1000
+            total = self.audio_player.get_duration() // 1000
+            total = max(total, 0)
+
+
+            self.time_label.setText(
+                f"{self.format_time(current)} / {self.format_time(total)}"
+            )
+
+
+    def update_audio_duration(self, duration):
+        # Задава максимума на слайдера
+        if hasattr(self, "audio_slider"):
+            self.audio_slider.setRange(0, duration)
+
+
+    def format_time(self, seconds):
+        minutes = seconds // 60
+        secs = seconds % 60
+        return f"{minutes:02}:{secs:02}"
+
+
+    def update_play_button(self, state):
+        if not hasattr(self, "play_btn"):
+            return
+
+        if state == QMediaPlayer.PlaybackState.PlayingState:
+            self.play_btn.setText("⏸ Pause")
+        else:
+            self.play_btn.setText("▶ Play")
 
