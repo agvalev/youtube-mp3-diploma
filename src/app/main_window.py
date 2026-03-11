@@ -25,6 +25,8 @@ from PyQt6.QtGui import QPixmap, QIcon
 from PyQt6.QtWidgets import QFileDialog
 import os
 from PyQt6.QtMultimedia import QMediaPlayer
+import webbrowser
+import os
 
 
 from .ui_manager import UIManager
@@ -168,6 +170,15 @@ class YTDGUI(QMainWindow):
     def update_status(self, message: str) -> None:
         """Update status bar message (thread-safe)."""
         self.updateStatusSignal.emit(message)
+    
+    def open_help_page(self):
+        import webbrowser
+        import os
+
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        help_path = os.path.join(base_dir, "help.html")
+
+        webbrowser.open(f"file:///{help_path}")
 
     def _update_status(self, message: str) -> None:
         """Internal method to update status bar in main thread."""

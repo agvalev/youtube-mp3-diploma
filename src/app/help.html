@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>YouTube Downloader Help</title>
+<link rel="stylesheet" href="help.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🎵 yt-downloader-gui</h1>
+
+<p>
+yt-downloader-gui is a professional cross-platform desktop application for downloading
+and managing multimedia content from YouTube through a modern graphical interface.
+</p>
+
+<p>
+The project is developed in <b>Python</b> using the <b>PyQt6</b> framework and integrates
+powerful tools such as <b>yt-dlp</b> for media downloading and <b>ffmpeg</b>
+for audio and video processing.
+</p>
+
+<p>
+The application focuses on strong software architecture, usability,
+security and background processing, making it suitable for real-world use
+and academic diploma defense.
+</p>
+
+<h2>🎯 Project Goals</h2>
+
+<p>The goal of the project is to demonstrate how a multimedia desktop system can be built by combining:</p>
+
+<ul>
+<li>Modern graphical user interface</li>
+<li>Powerful media extraction backend</li>
+<li>Threaded background processing</li>
+<li>Secure URL validation</li>
+<li>Clean modular software architecture</li>
+</ul>
+
+<p>
+All technical complexity is hidden from the user.
+Heavy operations run safely in the background while the user interacts with a simple interface.
+</p>
+
+<h2>🧠 How the Application Works</h2>
+
+<ol>
+<li>User enters a YouTube URL</li>
+<li>The application validates the URL</li>
+<li>The system detects the link type automatically</li>
+<li>Metadata is extracted without downloading media</li>
+<li>User selects desired items</li>
+<li>Downloads are added to a managed queue</li>
+<li>Downloads run in background threads</li>
+<li>Progress is displayed in real time</li>
+<li>Files are processed and saved locally</li>
+</ol>
+
+<p>The user interface never freezes even during long downloads.</p>
+
+<h2>⚙ Backend Processing</h2>
+
+<h3>yt-dlp Responsibilities</h3>
+
+<ul>
+<li>URL validation</li>
+<li>Metadata extraction</li>
+<li>Stream resolution</li>
+<li>Playlist and channel handling</li>
+<li>Download execution</li>
+</ul>
+
+<h3>ffmpeg Responsibilities</h3>
+
+<ul>
+<li>Audio/video merging</li>
+<li>MP3 conversion</li>
+<li>Bitrate and quality control</li>
+<li>Encoding parameter management</li>
+</ul>
+
+<h2>🔐 Security</h2>
+
+<p>Security is an important design principle.</p>
+
+<ul>
+<li>Only trusted YouTube domains are accepted</li>
+<li>Invalid URLs are rejected</li>
+<li>yt-dlp performs additional validation</li>
+<li>No execution of external files</li>
+</ul>
+
+<h2>🎓 Educational Value</h2>
+
+<p>The project follows best practices in software engineering:</p>
+
+<ul>
+<li>Modular architecture</li>
+<li>Separation of concerns</li>
+<li>Background threading</li>
+<li>Signal / slot communication</li>
+<li>Clean documentation</li>
+<li>Maintainable code</li>
+</ul>
+
+<p>This makes the project suitable for:</p>
+
+<ul>
+<li>Diploma defense</li>
+<li>University projects</li>
+<li>Software architecture demonstrations</li>
+<li>Python GUI courses</li>
+</ul>
+
+<h2>⭐ Main Features</h2>
+
+<h3>Download Capabilities</h3>
+
+<ul>
+<li>Single video download</li>
+<li>MP3 extraction</li>
+<li>Playlist download</li>
+<li>Playlist MP3 conversion</li>
+<li>Channel video download</li>
+<li>Channel MP3 download</li>
+<li>Shorts download</li>
+</ul>
+
+<h3>Quality Control</h3>
+
+<p><b>Video:</b> Best available resolution or fixed resolution (4K, 1080p etc.)</p>
+<p><b>Audio:</b> MP3 up to 320 kbps</p>
+
+<h3>Authentication Support</h3>
+
+<ul>
+<li>Cookie based login</li>
+<li>Age restricted videos</li>
+<li>Members only videos</li>
+</ul>
+
+<h2>🖥 Cross Platform</h2>
+
+<ul>
+<li>Windows</li>
+<li>Linux</li>
+<li>macOS</li>
+</ul>
+
+<h2>🧩 Application Architecture</h2>
+
+<table border="1" cellpadding="6">
+<tr>
+<th>Module</th>
+<th>Responsibility</th>
+</tr>
+
+<tr>
+<td>main_window.py</td>
+<td>Main application window and signals</td>
+</tr>
+
+<tr>
+<td>ui_manager.py</td>
+<td>User interface layout and styling</td>
+</tr>
+
+<tr>
+<td>download_manager.py</td>
+<td>Download logic and queue management</td>
+</tr>
+
+<tr>
+<td>login_manager.py</td>
+<td>Cookie based authentication</td>
+</tr>
+
+<tr>
+<td>updater.py</td>
+<td>Automatic yt-dlp updates</td>
+</tr>
+
+</table>
+
+<h2>🔁 Download Workflow</h2>
+
+<ol>
+<li>URL input</li>
+<li>Domain validation</li>
+<li>Mode selection</li>
+<li>Metadata extraction</li>
+<li>User selection</li>
+<li>Queue creation</li>
+<li>Download execution</li>
+<li>Media processing with ffmpeg</li>
+<li>Progress tracking</li>
+</ol>
+
+</div>
+
+</body>
+</html>

@@ -162,6 +162,10 @@ class UIManager:
     def create_download_page(self) -> QWidget:
         page = QWidget()
         layout = QVBoxLayout(page)
+        
+        help_btn = QPushButton("Help")
+        help_btn.clicked.connect(self.main_app.open_help_page)
+        layout.addWidget(help_btn)
 
         layout.addWidget(QLabel("Enter YouTube URL (or Playlist/Channel URL):"))
 
