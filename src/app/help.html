@@ -2,205 +2,1105 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>YouTube Downloader Help</title>
-<link rel="stylesheet" href="help.css">
-</head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anatoli Valev Project — Help</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:         #0e1117;
+    --surface:    #161b25;
+    --surface2:   #1e2535;
+    --border:     #2a3347;
+    --accent:     #e63946;
+    --accent2:    #ff6b6b;
+    --gold:       #f4a435;
+    --text:       #d4dbe8;
+    --text-muted: #7a8599;
+    --text-dim:   #4a5568;
+    --code-bg:    #111827;
+    --green:      #3ecf8e;
+  }
 
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Layout ── */
+  .page-wrap {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 100vh;
+  }
+
+  /* ── Sidebar ── */
+  nav {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 28px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px 22px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 10px;
+  }
+
+  .nav-logo .logo-icon {
+    width: 34px; height: 34px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: grid; place-items: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .nav-logo span {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: #fff;
+    line-height: 1.3;
+  }
+
+  .nav-section {
+    padding: 6px 20px 2px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--text-dim);
+    margin-top: 8px;
+  }
+
+  nav a {
+    display: block;
+    padding: 6px 20px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13.5px;
+    border-left: 2px solid transparent;
+    transition: color .15s, border-color .15s, background .15s;
+  }
+
+  nav a:hover {
+    color: var(--text);
+    background: rgba(255,255,255,.04);
+    border-left-color: var(--border);
+  }
+
+  nav a.active {
+    color: var(--accent2);
+    border-left-color: var(--accent);
+    background: rgba(230,57,70,.06);
+  }
+
+  /* ── Main content ── */
+  main {
+    padding: 56px 64px 80px;
+    max-width: 860px;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    margin-bottom: 56px;
+    padding-bottom: 44px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(230,57,70,.12);
+    border: 1px solid rgba(230,57,70,.25);
+    color: var(--accent2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 38px;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 16px;
+    letter-spacing: -.02em;
+  }
+
+  .hero h1 span { color: var(--accent); }
+
+  .hero p {
+    color: var(--text-muted);
+    font-size: 15.5px;
+    max-width: 600px;
+    line-height: 1.8;
+    margin-bottom: 10px;
+  }
+
+  /* ── Pill badges ── */
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 22px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 12px;
+    padding: 4px 11px;
+    border-radius: 20px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .badge.green { color: var(--green); border-color: rgba(62,207,142,.2); background: rgba(62,207,142,.06); }
+  .badge.gold  { color: var(--gold);  border-color: rgba(244,164,53,.2);  background: rgba(244,164,53,.06);  }
+  .badge.red   { color: var(--accent2); border-color: rgba(255,107,107,.2); background: rgba(255,107,107,.06); }
+  .badge.blue  { color: #7eb8f7; border-color: rgba(126,184,247,.2); background: rgba(126,184,247,.06); }
+
+  /* ── Section titles ── */
+  .section {
+    margin-bottom: 48px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .section-icon {
+    font-size: 18px;
+    width: 36px; height: 36px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: #fff;
+    letter-spacing: -.01em;
+  }
+
+  h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin: 24px 0 10px;
+  }
+
+  p {
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  p b { color: var(--text); font-weight: 500; }
+
+  /* ── Numbered steps ── */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    counter-reset: step;
+    position: relative;
+  }
+
+  .steps::before {
+    content: '';
+    position: absolute;
+    left: 16px; top: 32px; bottom: 32px;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 10px 0;
+    counter-increment: step;
+  }
+
+  .step-num {
+    width: 32px; height: 32px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step p { margin: 6px 0 0; }
+
+  /* ── Pill feature grid ── */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    transition: border-color .2s, background .2s;
+  }
+
+  .feature-card:hover {
+    border-color: rgba(230,57,70,.35);
+    background: var(--surface2);
+  }
+
+  .feature-card .fc-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 13.5px;
+    color: #fff;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .feature-card p {
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  /* ── Two-col bullets ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 20px;
+    list-style: none;
+  }
+
+  .two-col li, ul.plain li {
+    color: var(--text-muted);
+    font-size: 14px;
+    padding: 5px 0 5px 18px;
+    position: relative;
+  }
+
+  .two-col li::before, ul.plain li::before {
+    content: '▸';
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    font-size: 11px;
+    top: 7px;
+  }
+
+  ul.plain { list-style: none; padding: 0; }
+
+  /* ── Architecture table ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    margin-top: 4px;
+  }
+
+  thead th {
+    background: var(--surface2);
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background .15s;
+  }
+
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: rgba(255,255,255,.03); }
+
+  td {
+    padding: 10px 14px;
+    color: var(--text-muted);
+    vertical-align: top;
+  }
+
+  td:first-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--accent2);
+    white-space: nowrap;
+  }
+
+  /* ── Code block ── */
+  .code-block {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 16px 0;
+  }
+
+  .code-header {
+    background: var(--surface2);
+    padding: 7px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .code-header::before {
+    content: '';
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+  }
+
+  pre {
+    padding: 16px 18px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: #b0c4de;
+  }
+
+  pre .c  { color: var(--text-dim); }
+  pre .k  { color: #7ec8e3; }
+  pre .s  { color: var(--green); }
+
+  /* ── Security callout ── */
+  .callout {
+    background: rgba(62,207,142,.05);
+    border: 1px solid rgba(62,207,142,.18);
+    border-radius: 10px;
+    padding: 18px 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin: 16px 0;
+  }
+
+  .callout .callout-icon { font-size: 20px; flex-shrink: 0; }
+
+  .callout p { margin: 0; font-size: 13.5px; color: var(--text-muted); }
+
+  .callout p strong { color: var(--green); }
+
+  /* ── Platform badges ── */
+  .platform-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  .platform {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  /* ── Roadmap checklist ── */
+  .roadmap { list-style: none; padding: 0; }
+
+  .roadmap li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 0;
+    font-size: 14px;
+    color: var(--text-muted);
+    border-bottom: 1px solid rgba(42,51,71,.5);
+  }
+
+  .roadmap li:last-child { border-bottom: none; }
+
+  .roadmap .check {
+    width: 18px; height: 18px;
+    border-radius: 4px;
+    display: grid; place-items: center;
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+
+  .roadmap .check.done {
+    background: rgba(62,207,142,.15);
+    border: 1px solid rgba(62,207,142,.3);
+    color: var(--green);
+  }
+
+  .roadmap .check.todo {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: transparent;
+  }
+
+  .roadmap li.done-item { color: var(--text); }
+
+  /* ── Tech stack pills ── */
+  .tech-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .tech-pill {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 11px 16px;
+    transition: border-color .2s;
+  }
+
+  .tech-pill:hover { border-color: rgba(126,184,247,.3); }
+
+  .tech-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .tech-pill.html .tech-dot { background: #e34c26; }
+  .tech-pill.css  .tech-dot { background: #264de4; }
+  .tech-pill.js   .tech-dot { background: #f0db4f; }
+
+  .tech-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #fff;
+    width: 90px;
+    flex-shrink: 0;
+  }
+
+  .tech-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* ── Diploma requirements ── */
+  .dip-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .dip-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--green);
+    border-radius: 10px;
+    padding: 18px 18px 16px;
+    transition: border-color .2s, background .2s;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .dip-card:hover {
+    background: var(--surface2);
+    border-color: rgba(62,207,142,.5);
+    border-top-color: var(--green);
+  }
+
+  .dip-card--wide {
+    grid-column: 1 / -1;
+  }
+
+  .dip-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2px;
+  }
+
+  .dip-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: .05em;
+  }
+
+  .dip-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--green);
+    background: rgba(62,207,142,.08);
+    border: 1px solid rgba(62,207,142,.2);
+    border-radius: 20px;
+    padding: 2px 9px;
+  }
+
+  .dip-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #fff;
+  }
+
+  .dip-card p {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin: 0;
+    flex: 1;
+  }
+
+  .dip-impl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent2);
+    background: rgba(255,107,107,.05);
+    border: 1px solid rgba(255,107,107,.12);
+    border-radius: 6px;
+    padding: 6px 10px;
+    line-height: 1.6;
+    margin-top: 2px;
+  }
+
+  /* summary */
+  .dip-summary {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-top: 4px;
+  }
+
+  .dip-score {
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+    flex-shrink: 0;
+  }
+
+  .dip-score-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 36px;
+    color: var(--green);
+    line-height: 1;
+  }
+
+  .dip-score-slash {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    color: var(--text-dim);
+  }
+
+  .dip-score-total {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    color: var(--text-dim);
+  }
+
+  .dip-summary-text { flex: 1; }
+
+  .dip-bar-wrap { width: 120px; flex-shrink: 0; }
+
+  .dip-bar-track {
+    height: 5px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .dip-bar-fill {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, var(--green), #7effc5);
+    border-radius: 3px;
+  }
+
+  /* ── Scroll to top ── */
+  .back-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-dim);
+    font-size: 12px;
+    text-decoration: none;
+    margin-top: 40px;
+    font-family: 'JetBrains Mono', monospace;
+    transition: color .15s;
+  }
+
+  .back-top:hover { color: var(--accent2); }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .page-wrap { grid-template-columns: 1fr; }
+    nav { position: static; height: auto; flex-direction: row; flex-wrap: wrap; padding: 16px; gap: 4px; }
+    .nav-logo { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+    .nav-section { display: none; }
+    nav a { padding: 5px 12px; border-left: none; border-bottom: 2px solid transparent; font-size: 13px; }
+    main { padding: 32px 24px 60px; }
+    .feature-grid, .two-col { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
 <body>
 
-<div class="container">
+<div class="page-wrap">
 
-<h1>🎵 yt-downloader-gui</h1>
+<!-- ── Sidebar ── -->
+<nav>
+  <div class="nav-logo">
+    <div class="logo-icon">🎵</div>
+    <span>Anatoli Valev<br>Project</span>
+  </div>
 
-<p>
-yt-downloader-gui is a professional cross-platform desktop application for downloading
-and managing multimedia content from YouTube through a modern graphical interface.
-</p>
+  <span class="nav-section">Overview</span>
+  <a href="#overview" class="active">Introduction</a>
+  <a href="#how-it-works">How It Works</a>
 
-<p>
-The project is developed in <b>Python</b> using the <b>PyQt6</b> framework and integrates
-powerful tools such as <b>yt-dlp</b> for media downloading and <b>ffmpeg</b>
-for audio and video processing.
-</p>
+  <span class="nav-section">Core</span>
+  <a href="#features">Features</a>
+  <a href="#backend">Backend</a>
+  <a href="#security">Security</a>
 
-<p>
-The application focuses on strong software architecture, usability,
-security and background processing, making it suitable for real-world use
-and academic diploma defense.
-</p>
+  <span class="nav-section">Setup</span>
+  <a href="#install">Installation</a>
+  <a href="#config">Configuration</a>
 
-<h2>🎯 Project Goals</h2>
+  <span class="nav-section">Project</span>
+  <a href="#architecture">Architecture</a>
+  <a href="#roadmap">Roadmap</a>
+  <a href="#diploma">🎓 Дипломни изисквания</a>
+</nav>
 
-<p>The goal of the project is to demonstrate how a multimedia desktop system can be built by combining:</p>
+<!-- ── Main ── -->
+<main>
 
-<ul>
-<li>Modern graphical user interface</li>
-<li>Powerful media extraction backend</li>
-<li>Threaded background processing</li>
-<li>Secure URL validation</li>
-<li>Clean modular software architecture</li>
-</ul>
+  <!-- Hero -->
+  <section class="hero" id="overview">
+    <div class="hero-badge">● v1.0 — Python + PyQt6</div>
+    <h1>Anatoli Valev <span>Project</span></h1>
+    <p>
+      A professional, cross-platform desktop application for downloading and managing
+      multimedia content from YouTube — built with a modern graphical interface, clean
+      modular architecture, and robust background processing.
+    </p>
+    <p>
+      Powered by <b>yt-dlp</b> for media extraction and <b>ffmpeg</b> for audio/video
+      processing. Suitable for real-world use and academic diploma defense.
+    </p>
+    <div class="badges">
+      <span class="badge green">✓ Python 3.10+</span>
+      <span class="badge green">✓ PyQt6</span>
+      <span class="badge gold">⚙ yt-dlp</span>
+      <span class="badge gold">⚙ ffmpeg</span>
+      <span class="badge blue">🌐 HTML · CSS · JS</span>
+      <span class="badge red">🖥 Windows · Linux · macOS</span>
+    </div>
+  </section>
 
-<p>
-All technical complexity is hidden from the user.
-Heavy operations run safely in the background while the user interacts with a simple interface.
-</p>
+  <!-- How it works -->
+  <section class="section" id="how-it-works">
+    <div class="section-header">
+      <div class="section-icon">🧠</div>
+      <h2>How the Application Works</h2>
+    </div>
+    <p>
+      The app acts as a controller layer between the user and two specialized media engines —
+      <b>yt-dlp</b> for discovery and downloading, and <b>ffmpeg</b> for processing.
+      The UI never freezes, even during long downloads.
+    </p>
 
-<h2>🧠 How the Application Works</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><p>User enters a YouTube URL</p></div>
+      <div class="step"><div class="step-num">2</div><p>The application validates the URL against trusted domains</p></div>
+      <div class="step"><div class="step-num">3</div><p>Link type is detected automatically (video / playlist / channel / shorts)</p></div>
+      <div class="step"><div class="step-num">4</div><p>Metadata is extracted without downloading media</p></div>
+      <div class="step"><div class="step-num">5</div><p>User selects desired items (if playlist or channel)</p></div>
+      <div class="step"><div class="step-num">6</div><p>Downloads are added to a managed queue</p></div>
+      <div class="step"><div class="step-num">7</div><p>Media is downloaded in background threads — UI stays responsive</p></div>
+      <div class="step"><div class="step-num">8</div><p>Progress is parsed and displayed in real time</p></div>
+      <div class="step"><div class="step-num">9</div><p>Files are processed via ffmpeg and saved locally</p></div>
+    </div>
+  </section>
 
-<ol>
-<li>User enters a YouTube URL</li>
-<li>The application validates the URL</li>
-<li>The system detects the link type automatically</li>
-<li>Metadata is extracted without downloading media</li>
-<li>User selects desired items</li>
-<li>Downloads are added to a managed queue</li>
-<li>Downloads run in background threads</li>
-<li>Progress is displayed in real time</li>
-<li>Files are processed and saved locally</li>
-</ol>
+  <!-- Features -->
+  <section class="section" id="features">
+    <div class="section-header">
+      <div class="section-icon">⭐</div>
+      <h2>Main Features</h2>
+    </div>
 
-<p>The user interface never freezes even during long downloads.</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="fc-title">🎯 Download Modes</div>
+        <p>Single video, MP3 extraction, playlist, channel videos, channel MP3, and YouTube Shorts.</p>
+      </div>
+      <div class="feature-card">
+        <div class="fc-title">🎚 Quality Control</div>
+        <p>Video: best available or fixed resolution (8K → 1080p). Audio: MP3 up to 320 kbps.</p>
+      </div>
+      <div class="feature-card">
+        <div class="fc-title">🔑 Authentication</div>
+        <p>Cookie-based login for age-restricted, members-only, and private videos via <code>cookies.txt</code>.</p>
+      </div>
+      <div class="feature-card">
+        <div class="fc-title">🔄 Auto-Updater</div>
+        <p>GitHub version check for yt-dlp, automatic binary replacement — no manual updates needed.</p>
+      </div>
+      <div class="feature-card">
+        <div class="fc-title">📊 Live Feedback</div>
+        <p>Progress bar, real-time activity log, console output parsing, and automatic scrolling view.</p>
+      </div>
+      <div class="feature-card">
+        <div class="fc-title">🌐 Built-in Web UI</div>
+        <p>The help system and UI components use embedded <b>HTML</b>, <b>CSS</b>, and <b>JavaScript</b> — rendered inside the app via PyQt6's WebEngine.</p>
+      </div>
+      <div class="feature-card">
+        <div class="fc-title">🧩 Modular Design</div>
+        <p>Clean separation of UI, download logic, auth, and update logic across dedicated modules.</p>
+      </div>
+    </div>
+  </section>
 
-<h2>⚙ Backend Processing</h2>
+  <!-- Backend -->
+  <section class="section" id="backend">
+    <div class="section-header">
+      <div class="section-icon">⚙</div>
+      <h2>Backend Processing</h2>
+    </div>
 
-<h3>yt-dlp Responsibilities</h3>
+    <h3>yt-dlp Responsibilities</h3>
+    <ul class="two-col">
+      <li>URL validation</li>
+      <li>Metadata extraction</li>
+      <li>Stream resolution</li>
+      <li>Playlist &amp; channel handling</li>
+      <li>Download execution</li>
+      <li>Internal security checks</li>
+    </ul>
 
-<ul>
-<li>URL validation</li>
-<li>Metadata extraction</li>
-<li>Stream resolution</li>
-<li>Playlist and channel handling</li>
-<li>Download execution</li>
-</ul>
+    <h3>ffmpeg Responsibilities</h3>
+    <ul class="two-col">
+      <li>Audio/video stream merging</li>
+      <li>MP3 conversion</li>
+      <li>Bitrate &amp; quality control</li>
+      <li>Encoding parameter management</li>
+    </ul>
+  </section>
 
-<h3>ffmpeg Responsibilities</h3>
+  <!-- Security -->
+  <section class="section" id="security">
+    <div class="section-header">
+      <div class="section-icon">🔐</div>
+      <h2>Security</h2>
+    </div>
 
-<ul>
-<li>Audio/video merging</li>
-<li>MP3 conversion</li>
-<li>Bitrate and quality control</li>
-<li>Encoding parameter management</li>
-</ul>
+    <div class="callout">
+      <div class="callout-icon">🛡</div>
+      <p>Security is a core design principle. <strong>Only trusted YouTube domains are accepted.</strong>
+      All URLs are validated before any processing begins. No execution of untrusted external binaries.</p>
+    </div>
 
-<h2>🔐 Security</h2>
+    <ul class="plain">
+      <li>Only <code>youtube.com</code>, <code>youtu.be</code>, <code>music.youtube.com</code> are accepted</li>
+      <li>Invalid or unknown URLs are rejected immediately</li>
+      <li>yt-dlp performs additional internal validation</li>
+      <li>Cookies (if used) are never stored permanently or transmitted externally</li>
+      <li>No user credentials are logged or persisted</li>
+    </ul>
+  </section>
 
-<p>Security is an important design principle.</p>
+  <!-- Installation -->
+  <section class="section" id="install">
+    <div class="section-header">
+      <div class="section-icon">📥</div>
+      <h2>Installation</h2>
+    </div>
 
-<ul>
-<li>Only trusted YouTube domains are accepted</li>
-<li>Invalid URLs are rejected</li>
-<li>yt-dlp performs additional validation</li>
-<li>No execution of external files</li>
-</ul>
+    <p>Requires <b>Python 3.10+</b>. On Windows, yt-dlp and ffmpeg are bundled in <code>bin/</code>.
+    On Linux/macOS, <b>ffmpeg</b> must be installed and available in the system PATH.</p>
 
-<h2>🎓 Educational Value</h2>
+    <div class="code-block">
+      <div class="code-header">bash — install &amp; run</div>
+      <pre><span class="c"># Clone the repository</span>
+<span class="k">git</span> clone https://github.com/uikraft-hub/yt-downloader-gui.git
 
-<p>The project follows best practices in software engineering:</p>
+<span class="c"># Navigate to the project directory</span>
+<span class="k">cd</span> yt-downloader-gui
 
-<ul>
-<li>Modular architecture</li>
-<li>Separation of concerns</li>
-<li>Background threading</li>
-<li>Signal / slot communication</li>
-<li>Clean documentation</li>
-<li>Maintainable code</li>
-</ul>
+<span class="c"># Install Python dependencies</span>
+<span class="k">pip</span> install -r requirements.txt
 
-<p>This makes the project suitable for:</p>
+<span class="c"># Run the application</span>
+<span class="k">python</span> src/main.py</pre>
+    </div>
 
-<ul>
-<li>Diploma defense</li>
-<li>University projects</li>
-<li>Software architecture demonstrations</li>
-<li>Python GUI courses</li>
-</ul>
+    <div class="platform-row">
+      <div class="platform">🪟 Windows</div>
+      <div class="platform">🐧 Linux</div>
+      <div class="platform">🍎 macOS</div>
+    </div>
+  </section>
 
-<h2>⭐ Main Features</h2>
+  <!-- Config -->
+  <section class="section" id="config">
+    <div class="section-header">
+      <div class="section-icon">⚙️</div>
+      <h2>Configuration</h2>
+    </div>
 
-<h3>Download Capabilities</h3>
+    <h3>Cookie Authentication (Optional)</h3>
+    <p>To download age-restricted, members-only, or private videos, provide a <code>cookies.txt</code> file exported from your browser.</p>
 
-<ul>
-<li>Single video download</li>
-<li>MP3 extraction</li>
-<li>Playlist download</li>
-<li>Playlist MP3 conversion</li>
-<li>Channel video download</li>
-<li>Channel MP3 download</li>
-<li>Shorts download</li>
-</ul>
+    <ul class="plain">
+      <li>Export cookies using a supported browser extension</li>
+      <li>Place <code>cookies.txt</code> in the project root, or select it via the UI</li>
+      <li>Cookies are passed directly to yt-dlp — never stored or transmitted by the app</li>
+    </ul>
+  </section>
 
-<h3>Quality Control</h3>
+  <!-- Architecture -->
+  <section class="section" id="architecture">
+    <div class="section-header">
+      <div class="section-icon">🧩</div>
+      <h2>Application Architecture</h2>
+    </div>
 
-<p><b>Video:</b> Best available resolution or fixed resolution (4K, 1080p etc.)</p>
-<p><b>Audio:</b> MP3 up to 320 kbps</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Module</th>
+          <th>Responsibility</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>main_window.py</td><td>Main application window and signal/slot connections</td></tr>
+        <tr><td>ui_manager.py</td><td>UI creation, layout, and QSS styling</td></tr>
+        <tr><td>download_manager.py</td><td>Download logic, queue management, background threads</td></tr>
+      </tbody>
+    </table>
 
-<h3>Authentication Support</h3>
+    <h3>Web Technologies</h3>
+    <p>Alongside Python, the project uses web technologies for the built-in help page and UI elements:</p>
+    <div class="tech-stack">
+      <div class="tech-pill html">
+        <span class="tech-dot"></span>
+        <span class="tech-name">HTML</span>
+        <span class="tech-desc">Structure &amp; markup for the help system</span>
+      </div>
+      <div class="tech-pill css">
+        <span class="tech-dot"></span>
+        <span class="tech-name">CSS</span>
+        <span class="tech-desc">Theming, layout, dark mode styling</span>
+      </div>
+      <div class="tech-pill js">
+        <span class="tech-dot"></span>
+        <span class="tech-name">JavaScript</span>
+        <span class="tech-desc">Active nav, scroll interactions, dynamic behaviour</span>
+      </div>
+    </div>
+  </section>
 
-<ul>
-<li>Cookie based login</li>
-<li>Age restricted videos</li>
-<li>Members only videos</li>
-</ul>
+  <!-- Roadmap -->
+  <section class="section" id="roadmap">
+    <div class="section-header">
+      <div class="section-icon">📋</div>
+      <h2>Roadmap</h2>
+    </div>
 
-<h2>🖥 Cross Platform</h2>
+    <ul class="roadmap">
+      <li class="done-item"><span class="check done">✓</span> Modern PyQt6 graphical user interface</li>
+      <li class="done-item"><span class="check done">✓</span> Multiple download modes (video, audio, playlists, channels)</li>
+      <li class="done-item"><span class="check done">✓</span> Playlist and channel metadata preview</li>
+      <li class="done-item"><span class="check done">✓</span> Cookie-based authentication support</li>
+      <li class="done-item"><span class="check done">✓</span> Automatic yt-dlp updater</li>
+      <li><span class="check todo">○</span> Download history panel</li>
+      <li><span class="check todo">○</span> Preset quality and format profiles</li>
+      <li><span class="check todo">○</span> Integrated media preview player</li>
+      <li><span class="check todo">○</span> Advanced download queue management</li>
+      <li><span class="check todo">○</span> Localization and multi-language UI support</li>
+    </ul>
+  </section>
 
-<ul>
-<li>Windows</li>
-<li>Linux</li>
-<li>macOS</li>
-</ul>
+  <!-- Diploma Requirements -->
+  <section class="section" id="diploma">
+    <div class="section-header">
+      <div class="section-icon">🎓</div>
+      <h2>Дипломни изисквания</h2>
+    </div>
 
-<h2>🧩 Application Architecture</h2>
+    <!-- info callout -->
+    <div class="callout" style="margin-bottom:24px;">
+      <div class="callout-icon">📄</div>
+      <div>
+        <p style="margin-bottom:6px;"><strong style="color:var(--green);">ПГЕЕ „Апостол Арнаудов" — гр. Русе</strong></p>
+        <p style="margin:0;font-size:13px;">Ученик: <b>Анатоли Георгиев Вълев</b> — XII „Д" клас &nbsp;·&nbsp; Специалност: Системно програмиране &nbsp;·&nbsp;</p>
+      </div>
+    </div>
 
-<table border="1" cellpadding="6">
-<tr>
-<th>Module</th>
-<th>Responsibility</th>
-</tr>
+    <h3>Технически и функционални изисквания</h3>
 
-<tr>
-<td>main_window.py</td>
-<td>Main application window and signals</td>
-</tr>
+    <div class="dip-grid">
 
-<tr>
-<td>ui_manager.py</td>
-<td>User interface layout and styling</td>
-</tr>
+      <div class="dip-card">
+        <div class="dip-top">
+          <span class="dip-num">01</span>
+          <span class="dip-tag">✓ Изпълнено</span>
+        </div>
+        <div class="dip-title">Функционален UI</div>
+        <p>Да се разработи и реализира функционален потребителски интерфейс, чрез който потребителят да взаимодейства със системата.</p>
+        <div class="dip-impl">PyQt6 · тъмна тема · Activity &amp; Download изгледи</div>
+      </div>
 
-<tr>
-<td>download_manager.py</td>
-<td>Download logic and queue management</td>
-</tr>
+      <div class="dip-card">
+        <div class="dip-top">
+          <span class="dip-num">02</span>
+          <span class="dip-tag">✓ Изпълнено</span>
+        </div>
+        <div class="dip-title">Изтегляне по URL → MP3</div>
+        <p>Модул, който приема валиден YouTube URL и изтегля аудио съдържанието във формат MP3.</p>
+        <div class="dip-impl">yt-dlp + ffmpeg · MP3 до 320 kbps · видеа, плейлисти, канали</div>
+      </div>
 
-<tr>
-<td>login_manager.py</td>
-<td>Cookie based authentication</td>
-</tr>
+      <div class="dip-card">
+        <div class="dip-top">
+          <span class="dip-num">03</span>
+          <span class="dip-tag">✓ Изпълнено</span>
+        </div>
+        <div class="dip-title">Пускане и спиране на песни</div>
+        <p>Модул за пускане и спиране на песни директно от приложението.</p>
+        <div class="dip-impl">Вграден медиа плейър · пускане, пауза, управление на файлове</div>
+      </div>
 
-<tr>
-<td>updater.py</td>
-<td>Automatic yt-dlp updates</td>
-</tr>
+      <div class="dip-card">
+        <div class="dip-top">
+          <span class="dip-num">04</span>
+          <span class="dip-tag">✓ Изпълнено</span>
+        </div>
+        <div class="dip-title">Изтегляне на playlist</div>
+        <p>Изтегляне на playlist по избор на потребителя.</p>
+        <div class="dip-impl">Метаданни без изтегляне · интерактивен избор · пакетна обработка</div>
+      </div>
 
-</table>
+      <div class="dip-card dip-card--wide">
+        <div class="dip-top">
+          <span class="dip-num">05</span>
+          <span class="dip-tag">✓ Изпълнено</span>
+        </div>
+        <div class="dip-title">Защита от мрежови заплахи</div>
+        <p>Осигуряване на защита на потребителя от заплахи по мрежата.</p>
+        <div class="dip-impl">Само youtube.com · youtu.be · music.youtube.com &nbsp;·&nbsp; невалидни URL-и се отхвърлят незабавно &nbsp;·&nbsp; без изпълнение на външни файлове</div>
+      </div>
 
-<h2>🔁 Download Workflow</h2>
+    </div>
 
-<ol>
-<li>URL input</li>
-<li>Domain validation</li>
-<li>Mode selection</li>
-<li>Metadata extraction</li>
-<li>User selection</li>
-<li>Queue creation</li>
-<li>Download execution</li>
-<li>Media processing with ffmpeg</li>
-<li>Progress tracking</li>
-</ol>
+    <!-- summary -->
+    <div class="dip-summary">
+      <div class="dip-score">
+        <span class="dip-score-num">5</span>
+        <span class="dip-score-slash">/</span>
+        <span class="dip-score-total">5</span>
+      </div>
+      <div class="dip-summary-text">
+        <div style="color:#fff;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:4px;">Всички изисквания изпълнени</div>
+        <div style="font-size:12.5px;color:var(--text-muted);">Проектът покрива изцяло техническото задание за дипломна защита.</div>
+      </div>
+      <div class="dip-bar-wrap">
+        <div class="dip-bar-track"><div class="dip-bar-fill"></div></div>
+        <div style="font-size:11px;color:var(--green);font-family:'JetBrains Mono',monospace;margin-top:5px;text-align:right;">100%</div>
+      </div>
+    </div>
 
+  </section>
+
+  <a href="#overview" class="back-top">↑ back to top</a>
+
+</main>
 </div>
+
+<script>
+  // Highlight active nav link on scroll
+  const sections = document.querySelectorAll('section[id], .hero');
+  const links = document.querySelectorAll('nav a');
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const link = document.querySelector(`nav a[href="#${e.target.id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { threshold: 0.35 });
+
+  sections.forEach(s => obs.observe(s));
+</script>
 
 </body>
 </html>

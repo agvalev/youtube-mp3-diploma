@@ -140,6 +140,17 @@ class DownloadManager:
 
     def _handle_single_download(self, url: str, save_path: str, mode: str) -> None:
         """Handle single video or MP3-only download."""
+        # Validate that the URL belongs to a trusted YouTube domain
+        trusted_domains = ("youtube.com/", "youtu.be/", "music.youtube.com/")
+        if not any(domain in url for domain in trusted_domains):
+            QMessageBox.critical(
+                self.main_app,
+                "Error",
+                "The URL does not appear to be a valid YouTube URL.\n"
+                "Only URLs from youtube.com, youtu.be or music.youtube.com are accepted.",
+            )
+            return
+        
         # Create download task
         task = {
             "url": url,

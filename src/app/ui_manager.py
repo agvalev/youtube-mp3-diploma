@@ -131,7 +131,7 @@ class UIManager:
         widget = QWidget()
         layout = QVBoxLayout(widget)
 
-        header = QLabel("yt-downloader-gui")
+        header = QLabel("Anatoli Valev Project")
         header.setObjectName("header")
         header.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(header)
