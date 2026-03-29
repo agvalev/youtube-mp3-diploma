@@ -681,6 +681,265 @@
     border-radius: 3px;
   }
 
+  /* ════════════════════════════
+     PREMIUM STATS SECTION
+     ════════════════════════════ */
+
+  /* ── Orbital ── */
+  .orbital-wrap {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    margin: 0 auto 48px;
+  }
+
+  #orbital-canvas {
+    position: absolute;
+    inset: 0;
+  }
+
+  .orbital-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .orbital-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    margin-bottom: 4px;
+  }
+
+  .orbital-pct {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 36px;
+    color: #fff;
+    background: linear-gradient(135deg, #e63946, #3ecf8e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Ring cards ── */
+  .rings-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .ring-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 12px 16px;
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s, box-shadow .3s, border-color .3s;
+  }
+
+  .ring-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(230,57,70,.06), transparent 70%);
+    pointer-events: none;
+  }
+
+  .ring-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 16px 40px rgba(0,0,0,.4);
+    border-color: rgba(230,57,70,.3);
+  }
+
+  .ring-svg {
+    width: 90px;
+    height: 90px;
+    transform: rotate(-90deg);
+  }
+
+  .ring-track {
+    fill: none;
+    stroke: var(--surface2);
+    stroke-width: 8;
+  }
+
+  .ring-fill {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 251.2;
+    stroke-dashoffset: 251.2;
+    transition: stroke-dashoffset 1.4s cubic-bezier(.16,1,.3,1);
+  }
+
+  .ring-inner {
+    position: absolute;
+    top: 20px;
+    display: flex;
+    align-items: baseline;
+    gap: 1px;
+    margin-top: 10px;
+  }
+
+  /* position ring-inner properly over svg */
+  .ring-card { position: relative; }
+  .ring-svg  { position: relative; z-index: 1; }
+  .ring-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -68%);
+    z-index: 2;
+    display: flex;
+    align-items: baseline;
+    gap: 1px;
+  }
+
+  .ring-val {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: #fff;
+  }
+
+  .ring-unit {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  .ring-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    text-align: center;
+    letter-spacing: .03em;
+  }
+
+  /* ── Skill bars ── */
+  .skill-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 48px;
+  }
+
+  .skill-row { }
+
+  .skill-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 7px;
+  }
+
+  .skill-name {
+    font-size: 13.5px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .skill-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .skill-track {
+    height: 6px;
+    background: var(--surface2);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .skill-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 3px;
+    transition: width 1.2s cubic-bezier(.16,1,.3,1);
+    position: relative;
+  }
+
+  /* shimmer sweep on skill fill */
+  .skill-fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.25) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+
+  /* ── Counter cards ── */
+  .counters-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .counter-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 16px 18px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s, box-shadow .3s, border-color .3s;
+  }
+
+  .counter-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--green));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .4s cubic-bezier(.16,1,.3,1);
+  }
+
+  .counter-card:hover::before { transform: scaleX(1); }
+
+  .counter-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 36px rgba(0,0,0,.35);
+    border-color: rgba(230,57,70,.25);
+  }
+
+  .counter-val {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 38px;
+    line-height: 1;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #fff 30%, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .counter-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: .03em;
+  }
+
   /* ── Scroll to top ── */
   .back-top {
     display: inline-flex;
@@ -696,6 +955,340 @@
 
   .back-top:hover { color: var(--accent2); }
 
+  /* ════════════════════════════════════════
+     ANIMATIONS & FANCY EFFECTS
+     ════════════════════════════════════════ */
+
+  /* ── Keyframes ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-20px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes gradientShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(230,57,70,0); }
+    50%       { box-shadow: 0 0 18px 4px rgba(230,57,70,.18); }
+  }
+
+  @keyframes pulse-glow-green {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(62,207,142,0); }
+    50%       { box-shadow: 0 0 16px 4px rgba(62,207,142,.15); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-6px); }
+  }
+
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+  }
+
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.3; }
+  }
+
+  @keyframes countUp {
+    from { opacity: 0; transform: scale(.7); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes barGrow {
+    from { width: 0%; }
+    to   { width: 100%; }
+  }
+
+  @keyframes particle-float {
+    0%   { transform: translateY(0)   translateX(0)   scale(1);   opacity: .6; }
+    33%  { transform: translateY(-30px) translateX(15px)  scale(1.1); opacity: .9; }
+    66%  { transform: translateY(-15px) translateX(-10px) scale(.9);  opacity: .7; }
+    100% { transform: translateY(0)   translateX(0)   scale(1);   opacity: .6; }
+  }
+
+  /* ── Scroll-reveal base state ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity .6s cubic-bezier(.16,1,.3,1),
+                transform .6s cubic-bezier(.16,1,.3,1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* stagger delays for children */
+  .stagger > * { opacity: 0; transform: translateY(20px);
+    transition: opacity .5s cubic-bezier(.16,1,.3,1),
+                transform .5s cubic-bezier(.16,1,.3,1); }
+  .stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay:.05s; }
+  .stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay:.12s; }
+  .stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay:.19s; }
+  .stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay:.26s; }
+  .stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay:.33s; }
+  .stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay:.40s; }
+  .stagger.visible > *:nth-child(7) { opacity:1; transform:none; transition-delay:.47s; }
+
+  /* ── Hero animated gradient title ── */
+  .hero h1 span {
+    background: linear-gradient(90deg, #e63946, #ff6b6b, #f4a435, #e63946);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 4s ease infinite;
+  }
+
+  /* ── Hero badge pulse dot ── */
+  .hero-badge {
+    animation: fadeIn .6s ease both;
+  }
+
+  .hero-badge::before {
+    content: '';
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 6px;
+    animation: blink 1.6s ease-in-out infinite;
+    vertical-align: middle;
+  }
+
+  /* ── Hero particles canvas ── */
+  #hero-canvas {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    border-radius: inherit;
+  }
+
+  .hero { position: relative; overflow: hidden; }
+  .hero > * { position: relative; z-index: 1; }
+
+  /* ── Animated hero entrance ── */
+  .hero h1       { animation: fadeUp .7s .1s cubic-bezier(.16,1,.3,1) both; }
+  .hero p        { animation: fadeUp .7s .2s cubic-bezier(.16,1,.3,1) both; }
+  .hero .badges  { animation: fadeUp .7s .35s cubic-bezier(.16,1,.3,1) both; }
+
+  /* ── Sidebar logo float ── */
+  .nav-logo .logo-icon {
+    animation: float 4s ease-in-out infinite;
+    transition: transform .2s, box-shadow .2s;
+  }
+
+  .nav-logo .logo-icon:hover {
+    box-shadow: 0 0 20px rgba(230,57,70,.5);
+    animation-play-state: paused;
+  }
+
+  /* ── Nav links fancy hover ── */
+  nav a {
+    transition: color .2s, background .2s, border-color .2s, padding-left .2s;
+  }
+
+  nav a:hover { padding-left: 26px; }
+  nav a.active { padding-left: 26px; }
+
+  /* ── Section icon glow on hover ── */
+  .section-icon {
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+  }
+
+  .section-header:hover .section-icon {
+    transform: scale(1.12) rotate(-4deg);
+    box-shadow: 0 0 14px rgba(230,57,70,.25);
+    border-color: rgba(230,57,70,.4);
+  }
+
+  /* ── Feature cards lift & glow ── */
+  .feature-card {
+    transition: border-color .25s, background .25s,
+                transform .25s cubic-bezier(.16,1,.3,1),
+                box-shadow .25s;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(0,0,0,.35), 0 0 0 1px rgba(230,57,70,.2);
+  }
+
+  /* ── Step nums pulse ── */
+  .step-num {
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+  }
+
+  .step:hover .step-num {
+    transform: scale(1.15);
+    box-shadow: 0 0 12px rgba(230,57,70,.3);
+    border-color: var(--accent);
+  }
+
+  /* ── Table rows ── */
+  tbody tr {
+    transition: background .18s, transform .18s;
+  }
+
+  tbody tr:hover {
+    background: rgba(230,57,70,.04);
+    transform: translateX(3px);
+  }
+
+  /* ── Tech pills ── */
+  .tech-pill {
+    transition: border-color .25s, transform .25s, box-shadow .25s;
+  }
+
+  .tech-pill:hover {
+    transform: translateX(6px);
+    box-shadow: 0 4px 16px rgba(0,0,0,.25);
+  }
+
+  .tech-pill.html:hover { border-color: rgba(227,76,38,.4);  box-shadow: 0 4px 16px rgba(227,76,38,.1); }
+  .tech-pill.css:hover  { border-color: rgba(38,77,228,.4);  box-shadow: 0 4px 16px rgba(38,77,228,.1); }
+  .tech-pill.js:hover   { border-color: rgba(240,219,79,.4); box-shadow: 0 4px 16px rgba(240,219,79,.1); }
+
+  /* ── Roadmap items ── */
+  .roadmap li {
+    transition: background .2s, transform .2s, padding-left .2s;
+    border-radius: 6px;
+    padding-left: 4px;
+  }
+
+  .roadmap li:hover {
+    background: rgba(255,255,255,.03);
+    transform: translateX(4px);
+    padding-left: 8px;
+  }
+
+  .roadmap .check.done {
+    animation: pulse-glow-green 2.5s ease-in-out infinite;
+  }
+
+  /* ── Diploma cards ── */
+  .dip-card {
+    transition: border-color .25s, background .25s,
+                transform .3s cubic-bezier(.16,1,.3,1),
+                box-shadow .3s;
+  }
+
+  .dip-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 32px rgba(0,0,0,.3), 0 0 0 1px rgba(62,207,142,.2);
+  }
+
+  /* ── dip-tag shimmer ── */
+  .dip-tag {
+    background: linear-gradient(90deg,
+      rgba(62,207,142,.08) 25%,
+      rgba(62,207,142,.18) 50%,
+      rgba(62,207,142,.08) 75%);
+    background-size: 200% auto;
+    animation: shimmer 2.5s linear infinite;
+  }
+
+  /* ── Score number pop ── */
+  .dip-score-num {
+    animation: countUp .6s cubic-bezier(.16,1,.3,1) both;
+  }
+
+  /* ── Score bar grow ── */
+  .dip-bar-fill {
+    animation: barGrow 1.2s .4s cubic-bezier(.16,1,.3,1) both;
+  }
+
+  /* ── dip-summary glow ── */
+  .dip-summary {
+    animation: pulse-glow-green 3s ease-in-out infinite;
+  }
+
+  /* ── Platform badges ── */
+  .platform {
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+  }
+
+  .platform:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,.3);
+    border-color: rgba(230,57,70,.3);
+  }
+
+  /* ── Badge hover shimmer ── */
+  .badge {
+    transition: transform .15s, box-shadow .15s;
+  }
+
+  .badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,.2);
+  }
+
+  /* ── Code block hover ── */
+  .code-block {
+    transition: border-color .2s, box-shadow .2s;
+  }
+
+  .code-block:hover {
+    border-color: rgba(62,207,142,.25);
+    box-shadow: 0 0 20px rgba(62,207,142,.06);
+  }
+
+  /* ── Callout glow ── */
+  .callout {
+    transition: box-shadow .3s;
+  }
+
+  .callout:hover {
+    box-shadow: 0 0 24px rgba(62,207,142,.08);
+  }
+
+  /* ── Back to top ── */
+  .back-top {
+    transition: color .2s, transform .2s, letter-spacing .2s;
+  }
+
+  .back-top:hover {
+    transform: translateY(-3px);
+    letter-spacing: .04em;
+  }
+
+  /* ── Cursor glow dot that follows mouse ── */
+  #cursor-glow {
+    position: fixed;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(230,57,70,.06) 0%, transparent 70%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    transition: opacity .3s;
+  }
+
   /* ── Responsive ── */
   @media (max-width: 900px) {
     .page-wrap { grid-template-columns: 1fr; }
@@ -704,7 +1297,10 @@
     .nav-section { display: none; }
     nav a { padding: 5px 12px; border-left: none; border-bottom: 2px solid transparent; font-size: 13px; }
     main { padding: 32px 24px 60px; }
-    .feature-grid, .two-col { grid-template-columns: 1fr; }
+    .feature-grid, .two-col, .rings-grid, .counters-grid { grid-template-columns: 1fr 1fr; }
+    .dip-grid { grid-template-columns: 1fr; }
+    .orbital-wrap { width: 240px; height: 240px; }
+    #orbital-canvas { width: 240px; height: 240px; }
   }
 </style>
 </head>
@@ -736,6 +1332,7 @@
   <a href="#architecture">Architecture</a>
   <a href="#roadmap">Roadmap</a>
   <a href="#diploma">🎓 Дипломни изисквания</a>
+  <a href="#stats">📡 Stats</a>
 </nav>
 
 <!-- ── Main ── -->
@@ -743,7 +1340,8 @@
 
   <!-- Hero -->
   <section class="hero" id="overview">
-    <div class="hero-badge">● v1.0 — Python + PyQt6</div>
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-badge">v1.0 — Python + PyQt6</div>
     <h1>Anatoli Valev <span>Project</span></h1>
     <p>
       A professional, cross-platform desktop application for downloading and managing
@@ -765,7 +1363,7 @@
   </section>
 
   <!-- How it works -->
-  <section class="section" id="how-it-works">
+  <section class="section reveal" id="how-it-works">
     <div class="section-header">
       <div class="section-icon">🧠</div>
       <h2>How the Application Works</h2>
@@ -790,13 +1388,13 @@
   </section>
 
   <!-- Features -->
-  <section class="section" id="features">
+  <section class="section reveal" id="features">
     <div class="section-header">
       <div class="section-icon">⭐</div>
       <h2>Main Features</h2>
     </div>
 
-    <div class="feature-grid">
+    <div class="feature-grid stagger">
       <div class="feature-card">
         <div class="fc-title">🎯 Download Modes</div>
         <p>Single video, MP3 extraction, playlist, channel videos, channel MP3, and YouTube Shorts.</p>
@@ -829,7 +1427,7 @@
   </section>
 
   <!-- Backend -->
-  <section class="section" id="backend">
+  <section class="section reveal" id="backend">
     <div class="section-header">
       <div class="section-icon">⚙</div>
       <h2>Backend Processing</h2>
@@ -855,7 +1453,7 @@
   </section>
 
   <!-- Security -->
-  <section class="section" id="security">
+  <section class="section reveal" id="security">
     <div class="section-header">
       <div class="section-icon">🔐</div>
       <h2>Security</h2>
@@ -877,7 +1475,7 @@
   </section>
 
   <!-- Installation -->
-  <section class="section" id="install">
+  <section class="section reveal" id="install">
     <div class="section-header">
       <div class="section-icon">📥</div>
       <h2>Installation</h2>
@@ -909,7 +1507,7 @@
   </section>
 
   <!-- Config -->
-  <section class="section" id="config">
+  <section class="section reveal" id="config">
     <div class="section-header">
       <div class="section-icon">⚙️</div>
       <h2>Configuration</h2>
@@ -926,7 +1524,7 @@
   </section>
 
   <!-- Architecture -->
-  <section class="section" id="architecture">
+  <section class="section reveal" id="architecture">
     <div class="section-header">
       <div class="section-icon">🧩</div>
       <h2>Application Architecture</h2>
@@ -968,7 +1566,7 @@
   </section>
 
   <!-- Roadmap -->
-  <section class="section" id="roadmap">
+  <section class="section reveal" id="roadmap">
     <div class="section-header">
       <div class="section-icon">📋</div>
       <h2>Roadmap</h2>
@@ -989,7 +1587,7 @@
   </section>
 
   <!-- Diploma Requirements -->
-  <section class="section" id="diploma">
+  <section class="section reveal" id="diploma">
     <div class="section-header">
       <div class="section-icon">🎓</div>
       <h2>Дипломни изисквания</h2>
@@ -1000,13 +1598,13 @@
       <div class="callout-icon">📄</div>
       <div>
         <p style="margin-bottom:6px;"><strong style="color:var(--green);">ПГЕЕ „Апостол Арнаудов" — гр. Русе</strong></p>
-        <p style="margin:0;font-size:13px;">Ученик: <b>Анатоли Георгиев Вълев</b> — XII „Д" клас &nbsp;·&nbsp; Специалност: Системно програмиране &nbsp;·&nbsp;</p>
+        <p style="margin:0;font-size:13px;">Ученик: <b>Анатоли Георгиев Вълев</b> — XII „Д" клас &nbsp;·&nbsp; Специалност: Системно програмиране (4810201) &nbsp;·&nbsp; Председател: Галя Стоянова</p>
       </div>
     </div>
 
     <h3>Технически и функционални изисквания</h3>
 
-    <div class="dip-grid">
+    <div class="dip-grid stagger">
 
       <div class="dip-card">
         <div class="dip-top">
@@ -1079,17 +1677,178 @@
 
   </section>
 
+  <!-- ══ PREMIUM STATS SECTION ══ -->
+  <section class="section reveal" id="stats">
+    <div class="section-header">
+      <div class="section-icon">📡</div>
+      <h2>Project Stats</h2>
+    </div>
+
+    <!-- Horizontal skill bars -->
+    <div class="skill-bars">
+
+      <div class="skill-row reveal">
+        <div class="skill-meta">
+          <span class="skill-name">Python / PyQt6</span>
+          <span class="skill-pct">95%</span>
+        </div>
+        <div class="skill-track">
+          <div class="skill-fill" data-w="95" style="background:linear-gradient(90deg,#e63946,#ff6b6b)"></div>
+        </div>
+      </div>
+
+      <div class="skill-row reveal">
+        <div class="skill-meta">
+          <span class="skill-name">yt-dlp Integration</span>
+          <span class="skill-pct">98%</span>
+        </div>
+        <div class="skill-track">
+          <div class="skill-fill" data-w="98" style="background:linear-gradient(90deg,#3ecf8e,#7effc5)"></div>
+        </div>
+      </div>
+
+      <div class="skill-row reveal">
+        <div class="skill-meta">
+          <span class="skill-name">ffmpeg Processing</span>
+          <span class="skill-pct">90%</span>
+        </div>
+        <div class="skill-track">
+          <div class="skill-fill" data-w="90" style="background:linear-gradient(90deg,#f4a435,#ffd080)"></div>
+        </div>
+      </div>
+
+      <div class="skill-row reveal">
+        <div class="skill-meta">
+          <span class="skill-name">UI / UX Design</span>
+          <span class="skill-pct">88%</span>
+        </div>
+        <div class="skill-track">
+          <div class="skill-fill" data-w="88" style="background:linear-gradient(90deg,#7eb8f7,#a8d4ff)"></div>
+        </div>
+      </div>
+
+      <div class="skill-row reveal">
+        <div class="skill-meta">
+          <span class="skill-name">Security & Validation</span>
+          <span class="skill-pct">100%</span>
+        </div>
+        <div class="skill-track">
+          <div class="skill-fill" data-w="100" style="background:linear-gradient(90deg,#e63946,#3ecf8e)"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Animated number counters -->
+    <div class="counters-grid">
+      <div class="counter-card reveal">
+        <div class="counter-val" data-target="5">0</div>
+        <div class="counter-label">Дипломни изисквания</div>
+      </div>
+      <div class="counter-card reveal">
+        <div class="counter-val" data-target="8">0</div>
+        <div class="counter-label">Download режима</div>
+      </div>
+      <div class="counter-card reveal">
+        <div class="counter-val" data-target="3">0</div>
+        <div class="counter-label">Платформи</div>
+      </div>
+      <div class="counter-card reveal">
+        <div class="counter-val" data-target="320" data-suffix="k">0</div>
+        <div class="counter-label">Max Bitrate</div>
+      </div>
+    </div>
+
+  </section>
+
   <a href="#overview" class="back-top">↑ back to top</a>
 
 </main>
 </div>
 
 <script>
-  // Highlight active nav link on scroll
-  const sections = document.querySelectorAll('section[id], .hero');
-  const links = document.querySelectorAll('nav a');
+  /* ── Cursor glow ── */
+  const glow = document.createElement('div');
+  glow.id = 'cursor-glow';
+  document.body.appendChild(glow);
+  document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top  = e.clientY + 'px';
+  });
 
-  const obs = new IntersectionObserver(entries => {
+  /* ── Hero canvas particles ── */
+  const canvas = document.getElementById('hero-canvas');
+  const hero   = canvas.parentElement;
+
+  function resizeCanvas() {
+    canvas.width  = hero.offsetWidth;
+    canvas.height = hero.offsetHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  const ctx = canvas.getContext('2d');
+  const particles = Array.from({ length: 28 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.8 + .4,
+    vx: (Math.random() - .5) * .35,
+    vy: (Math.random() - .5) * .35,
+    opacity: Math.random() * .4 + .1,
+    color: Math.random() > .5 ? '230,57,70' : '62,207,142',
+  }));
+
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = canvas.width;
+      if (p.x > canvas.width) p.x = 0;
+      if (p.y < 0) p.y = canvas.height;
+      if (p.y > canvas.height) p.y = 0;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.color},${p.opacity})`;
+      ctx.fill();
+    });
+
+    // draw connecting lines between close particles
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 80) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(230,57,70,${.08 * (1 - dist/80)})`;
+          ctx.lineWidth = .6;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(drawParticles);
+  }
+  drawParticles();
+
+  /* ── Scroll reveal ── */
+  const revealEls  = document.querySelectorAll('.reveal, .stagger');
+  const revealObs  = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => revealObs.observe(el));
+
+  /* ── Active nav on scroll ── */
+  const sections = document.querySelectorAll('section[id], .hero');
+  const links    = document.querySelectorAll('nav a');
+
+  const navObs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         links.forEach(l => l.classList.remove('active'));
@@ -1098,8 +1857,182 @@
       }
     });
   }, { threshold: 0.35 });
+  sections.forEach(s => navObs.observe(s));
 
-  sections.forEach(s => obs.observe(s));
+  /* ── Step numbers count-up reveal ── */
+  const steps = document.querySelectorAll('.step-num');
+  const stepObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.animation = 'countUp .4s cubic-bezier(.16,1,.3,1) both';
+        stepObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 1 });
+  steps.forEach(s => stepObs.observe(s));
+
+  /* ── Typing effect on hero h1 ── */
+  (function() {
+    const h1 = document.querySelector('.hero h1');
+    if (!h1) return;
+    h1.style.minHeight = h1.offsetHeight + 'px';
+  })();
+
+  /* ══════════════════════════════════════════
+     STATS SECTION ANIMATIONS
+     ══════════════════════════════════════════ */
+
+  /* ── Orbital canvas ── */
+  const orb = document.getElementById('orbital-canvas');
+  if (orb) {
+    const oc = orb.getContext('2d');
+    const cx = 160, cy = 160;
+    let orbAngle = 0;
+
+    const orbRings = [
+      { r: 110, speed: .008, color: '230,57,70',   dots: 3, dotR: 5,  opacity: .8 },
+      { r:  85, speed: -.012, color: '62,207,142', dots: 2, dotR: 4,  opacity: .7 },
+      { r:  60, speed: .018, color: '126,184,247', dots: 4, dotR: 3,  opacity: .6 },
+      { r:  38, speed: -.025, color: '244,164,53', dots: 2, dotR: 2.5, opacity: .9 },
+    ];
+
+    function drawOrb() {
+      oc.clearRect(0, 0, 320, 320);
+
+      // outer glow
+      const grd = oc.createRadialGradient(cx, cy, 20, cx, cy, 130);
+      grd.addColorStop(0, 'rgba(230,57,70,.04)');
+      grd.addColorStop(1, 'transparent');
+      oc.fillStyle = grd;
+      oc.fillRect(0, 0, 320, 320);
+
+      orbRings.forEach((ring, ri) => {
+        // draw orbit path
+        oc.beginPath();
+        oc.arc(cx, cy, ring.r, 0, Math.PI * 2);
+        oc.strokeStyle = `rgba(${ring.color},.12)`;
+        oc.lineWidth = 1;
+        oc.setLineDash([4, 6]);
+        oc.stroke();
+        oc.setLineDash([]);
+
+        // draw dots
+        for (let d = 0; d < ring.dots; d++) {
+          const angle = orbAngle * ring.speed * 100 + (d / ring.dots) * Math.PI * 2;
+          const dx = cx + Math.cos(angle) * ring.r;
+          const dy = cy + Math.sin(angle) * ring.r;
+
+          // glow behind dot
+          const dg = oc.createRadialGradient(dx, dy, 0, dx, dy, ring.dotR * 3);
+          dg.addColorStop(0, `rgba(${ring.color},${ring.opacity})`);
+          dg.addColorStop(1, 'transparent');
+          oc.fillStyle = dg;
+          oc.beginPath();
+          oc.arc(dx, dy, ring.dotR * 3, 0, Math.PI * 2);
+          oc.fill();
+
+          // solid dot
+          oc.beginPath();
+          oc.arc(dx, dy, ring.dotR, 0, Math.PI * 2);
+          oc.fillStyle = `rgba(${ring.color},1)`;
+          oc.fill();
+        }
+      });
+
+      // center circle
+      const cg = oc.createRadialGradient(cx, cy, 0, cx, cy, 22);
+      cg.addColorStop(0, 'rgba(230,57,70,.9)');
+      cg.addColorStop(.6, 'rgba(62,207,142,.5)');
+      cg.addColorStop(1, 'transparent');
+      oc.beginPath();
+      oc.arc(cx, cy, 18, 0, Math.PI * 2);
+      oc.fillStyle = cg;
+      oc.fill();
+
+      orbAngle++;
+      requestAnimationFrame(drawOrb);
+    }
+    drawOrb();
+  }
+
+  /* ── Ring progress bars ── */
+  function animateRings() {
+    document.querySelectorAll('.ring-card').forEach(card => {
+      const pct    = parseFloat(card.dataset.pct) || 0;
+      const fill   = card.querySelector('.ring-fill');
+      const valEl  = card.querySelector('.ring-val');
+      const target = parseFloat(valEl.dataset.target) || 0;
+      const colorData = fill.dataset.color;
+
+      // stroke color
+      fill.style.stroke = `rgb(${colorData})`;
+
+      // circumference = 2π×40 ≈ 251.2
+      const circ  = 251.2;
+      // map pct to 0-100 range for the ring (clamp)
+      const ratio = Math.min(pct, 100) / 100;
+      const offset = circ - ratio * circ;
+
+      // animate on scroll into view
+      const ro = new IntersectionObserver(([entry]) => {
+        if (!entry.isIntersecting) return;
+        ro.disconnect();
+
+        // ring stroke
+        setTimeout(() => { fill.style.strokeDashoffset = offset; }, 100);
+
+        // number count-up
+        let start = null;
+        const duration = 1400;
+        function step(ts) {
+          if (!start) start = ts;
+          const progress = Math.min((ts - start) / duration, 1);
+          const ease = 1 - Math.pow(1 - progress, 3);
+          valEl.textContent = Math.round(ease * target);
+          if (progress < 1) requestAnimationFrame(step);
+          else valEl.textContent = target;
+        }
+        requestAnimationFrame(step);
+
+      }, { threshold: 0.5 });
+      ro.observe(card);
+    });
+  }
+  animateRings();
+
+  /* ── Skill bar fills ── */
+  document.querySelectorAll('.skill-fill').forEach(bar => {
+    const w = bar.dataset.w || 0;
+    const ro = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      ro.disconnect();
+      setTimeout(() => { bar.style.width = w + '%'; }, 150);
+    }, { threshold: 0.8 });
+    ro.observe(bar);
+  });
+
+  /* ── Counter number count-up ── */
+  document.querySelectorAll('.counter-val').forEach(el => {
+    const target = parseFloat(el.dataset.target) || 0;
+    const suffix = el.dataset.suffix || '';
+    const ro = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      ro.disconnect();
+      let start = null;
+      const duration = 1200;
+      function step(ts) {
+        if (!start) start = ts;
+        const progress = Math.min((ts - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(ease * target) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = target + suffix;
+      }
+      requestAnimationFrame(step);
+    }, { threshold: 0.8 });
+    ro.observe(el);
+  });
+
 </script>
 
 </body>
